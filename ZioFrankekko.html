@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ZioFrankekko Hub</title>
+<link rel="icon" href="https://i.imgur.com/hmtaPtS.png">
+<style>
+@font-face {
+    font-family: 'Beon';
+    src: url('http://urrs.mywebcommunity.org/BEON.ttf') format('truetype');
+}
+
+body {
+    font-family: 'Nunito', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #121212;
+    background-image: url('https://i.imgur.com/ixJsw2N.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-blend-mode: multiply;
+    color: #e0e0e0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.neon-text {
+    font-family: 'Beon', cursive;
+    font-size: 3em;
+    text-align: center;
+    margin-bottom: 20px;
+}
+.neon-text .pink {
+    color: #ff6371;
+    text-shadow: 0 0 5px #ff6371, 0 0 10px #ff6371, 0 0 20px #ff6371;
+    animation: flickerPink 1.2s infinite alternate;
+}
+.neon-text .yellow {
+    color: #f5b845;
+    text-shadow: 0 0 5px #f5b845, 0 0 10px #f5b845, 0 0 20px #f5b845;
+    animation: flickerYellow 1.5s infinite alternate;
+}
+@keyframes flickerPink {
+    50% { text-shadow: 0 0 3px #ff6371, 0 0 6px #ff6371, 0 0 12px #ff6371; }
+}
+@keyframes flickerYellow {
+    50% { text-shadow: 0 0 3px #f5b845, 0 0 6px #f5b845, 0 0 12px #f5b845; }
+}
+
+main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 120px 0;
+}
+
+/* Card */
+.card {
+    background-color: rgba(20, 20, 20, 1);
+    border-radius: 34px;
+    padding: 35px 40px;
+    width: 100%;
+    max-width: 650px;
+    text-align: center;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
+    margin: 0 auto;
+}
+.card-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.profile-wrapper {
+    position: relative;
+    width: 130px;
+    height: 130px;
+    margin-bottom: 15px;
+}
+
+.profile-wrapper::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    background-image: url('https://i.imgur.com/hmtaPtS.png');
+    background-size: cover;
+    background-position: center;
+    filter: blur(12px) brightness(0.6);
+    z-index: 1;
+}
+
+.profile-wrapper img.profile {
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+    position: relative;
+    z-index: 2;
+}
+
+
+
+
+
+.card-header p {
+    font-size: 0.95em;
+    color: #aaa;
+    margin: 0;
+}
+
+.card-body {
+  justify-content: center;
+    font-size: 15px;
+    line-height: 1.5;
+    color: #ccc;
+    text-align: center;
+    margin-bottom: 25px;
+    max-width: 70%;
+  margin-left: 15%;
+}
+
+.links {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    width: 100%;
+}
+.links a {
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    gap: 40px;
+    padding: 8px 20px;
+    border-radius: 24px;
+    text-decoration: none;
+    color: #fff;
+    background-color: #2a2a2a;
+    font-weight: 500;
+    transition: transform 0.2s;
+    width: 30%;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+.links a img {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+}
+.links a:hover {
+    transform: scale(1.05);
+}
+
+/* Community Container */
+.community-container {
+    background-color: rgba(28, 28, 28, 1);
+    border-radius: 34px;
+    padding: 40px 30px;
+    width: 100%;
+    max-width: 590px;
+    text-align: center;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.6);
+    margin: 25px auto 0 auto; /* centrato orizzontalmente */
+    color: #ccc;
+}
+.community-container h3 {
+    margin: 0 0 10px 0;
+    color: #f5b845;
+    font-size: 22px;
+}
+.community-container p {
+    font-size: 0.95em;
+    line-height: 1.5;
+    margin-bottom: 20px;
+}
+.community-button {
+    display: inline-block;
+    padding: 12px 25px;
+    border-radius: 24px;
+    background-color: #2a2a2a;
+    color: #fff;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.95em;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    transition: transform 0.2s;
+}
+.community-button:hover {
+    transform: scale(1.05);
+}
+
+/* FOOTER ORIGINALE */
+footer {
+    background-color: rgba(20, 20, 20, 1);
+    color: #e0e0e0;
+    padding: 20px 40px;
+    text-align: center;
+    box-shadow: 0 -8px 16px rgba(0, 0, 0, 0.6);
+    border-radius: 34px;
+    margin: 20px auto;
+    max-width: 1200px;
+    position: relative;
+    z-index: 1;
+}
+footer p {
+    margin: 0;
+    font-size: 0.9em;
+}
+footer a {
+    color: #f5b845;
+    text-decoration: none;
+}
+footer a:hover {
+    text-decoration: underline;
+}
+</style>
+</head>
+<body>
+<main>
+    <div class="card">
+        <div class="neon-text">
+            <span class="pink">Zio</span><span class="yellow">Frankekko</span>
+        </div>
+        <div class="card-header">
+    <div class="profile-wrapper">
+        <img src="https://i.imgur.com/hmtaPtS.png" alt="Profilo" class="profile">
+    </div>
+    <p>Streamer & Creator</p>
+</div>
+
+        <div class="card-body">
+            <p>Ciao! Sono ZioFrankekko, appassionato di tech, streaming, Gaming e Anime.  
+            Qui trovi i miei canali e social principali:</p>
+        </div>
+        <div class="links">
+            <a href="https://www.instagram.com/frankekko_dono/" target="_blank">
+                <img src="https://i.imgur.com/NckjnW6.png" alt="Instagram">
+                Instagram
+            </a>
+            <a href="https://www.twitch.tv/ziofrankekko" target="_blank">
+                <img src="https://i.imgur.com/buGMJSY.png" alt="Twitch">
+                Twitch
+            </a>
+            <a href="https://discord.com/users/652166441193177088" target="_blank">
+                <img src="https://i.imgur.com/kweOgTF.png" alt="Discord">
+                Discord
+            </a>
+            <a href="https://www.youtube.com/@ZioFrankekko" target="_blank">
+                <img src="https://i.imgur.com/4VAg1dV.png" alt="YouTube">
+                YouTube
+            </a>
+        </div>
+
+        <div class="community-container">
+            <h3>Scopri la community di U.R.R.S.</h3>
+            <p>Unisciti alla nostra community italiana di otaku dove puoi discutere di anime, manga, videogiochi e tanto altro.  
+               Partecipa al nostro Discord, esplora i canali Telegram e vivi contenuti esclusivi!</p>
+            <a class="community-button" href="http://urrs.mywebcommunity.org/" target="_blank">
+                Visita il sito ufficiale
+            </a>
+        </div>
+
+    </div>
+</main>
+<footer>
+    <p>© 2025 <a href="http://urrs.mywebcommunity.org/" target="_blank">ZioFrankekko</a> - All rights reserved</p>
+</footer>
+</body>
+</html>
