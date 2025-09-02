@@ -37,9 +37,15 @@
         html {
             scroll-snap-type: y mandatory;
             scroll-behavior: smooth;
-            overflow-y: auto;
-            overflow-x: hidden;
+            overflow: hidden auto;
             color-scheme: dark;
+        }
+        
+        /* Disable scroll snap on smaller screens */
+        @media (max-width: 1024px) {
+            html {
+                scroll-snap-type: none !important;
+            }
         }
 
         body {
@@ -144,6 +150,7 @@
             justify-content: flex-start;
             position: relative;
             padding-top: 60px;
+            margin-top: 40px;
         }
 
         /* Card */
@@ -370,7 +377,7 @@
             max-width: 650px;
             text-align: center;
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.9);
-            margin: 0 auto;
+            margin: 60px auto 40px;
             color: #ccc;
             transition: transform 0.3s ease;
         }
@@ -425,7 +432,7 @@
         .projects-section {
             width: 100%;
             max-width: 1200px;
-            margin-bottom: 60px;
+            margin: 60px auto 60px;
         }
 
         .projects-title {
@@ -634,14 +641,17 @@
         footer {
             background-color: #141414;
             color: #e0e0e0;
-            padding: 20px 40px;
+            padding: 20px 30px;
             text-align: center;
             box-shadow: 0 -20px 40px rgba(0, 0, 0, 0.9);
             border-radius: 34px;
-            margin: 20px auto 0;
-            max-width: 1200px;
+            margin: 60px auto 30px;
+            max-width: 800px;
+            width: auto;
             position: relative;
-            z-index: 1;
+            z-index: 10;
+            clear: both;
+            box-sizing: border-box;
         }
 
         footer p {
@@ -711,12 +721,12 @@
         /* Medium screens - Tablet/Small Desktop - Disable scroll snap for smaller screens */
         @media (max-width: 1024px) and (min-width: 769px) {
             html {
-                scroll-snap-type: none;
+                scroll-snap-type: none !important;
             }
             
             .section {
-                scroll-snap-align: none;
-                scroll-snap-stop: auto;
+                scroll-snap-align: none !important;
+                scroll-snap-stop: auto !important;
                 min-height: auto;
                 padding: 50px 25px;
             }
@@ -753,25 +763,41 @@
             
             .card {
                 max-width: 550px;
-                margin: 0 auto 40px auto;
+                margin: 40px auto 50px auto;
+            }
+            
+            .community-container {
+                margin: 50px auto 40px;
+            }
+            
+            .projects-section {
+                margin: 50px auto 50px;
             }
             
             footer {
                 max-width: 800px;
+                margin: 50px auto 30px;
+                z-index: 10;
+                clear: both;
             }
         }
 
         /* Small screens - Mobile - No scroll snap */
         @media (max-width: 768px) {
             html {
-                scroll-snap-type: none;
+                scroll-snap-type: none !important;
             }
             
             .section {
-                scroll-snap-align: none;
-                scroll-snap-stop: auto;
+                scroll-snap-align: none !important;
+                scroll-snap-stop: auto !important;
                 min-height: auto;
                 padding: 40px 15px;
+            }
+            
+            footer {
+                max-width: 90%;
+                padding: 15px 20px;
             }
             
             .neon-text {
@@ -805,11 +831,15 @@
             }
             
             .card {
-                margin: 0 auto 40px auto;
+                margin: 40px auto 50px auto;
             }
             
             .community-container {
-                margin: 0 auto;
+                margin: 50px auto 40px;
+            }
+            
+            .projects-section {
+                margin: 50px auto 50px;
             }
             
             footer {
@@ -817,21 +847,29 @@
                 bottom: auto;
                 left: auto;
                 transform: none;
-                margin-top: 40px;
+                margin: 50px auto 30px;
+                z-index: 10;
+                clear: both;
             }
         }
 
         /* Very small screens - No scroll snap */
         @media (max-width: 480px) {
             html {
-                scroll-snap-type: none;
+                scroll-snap-type: none !important;
             }
             
             .section {
-                scroll-snap-align: none;
-                scroll-snap-stop: auto;
+                scroll-snap-align: none !important;
+                scroll-snap-stop: auto !important;
                 min-height: auto;
                 padding: 30px 10px;
+            }
+            
+            footer {
+                max-width: 95%;
+                padding: 12px 15px;
+                border-radius: 20px;
             }
             
             .neon-text {
@@ -844,7 +882,7 @@
             
             .card {
                 padding: 25px 20px;
-                margin: 0 auto 20px auto;
+                margin: 40px auto 40px auto;
             }
             
             .social-grid {
@@ -866,17 +904,28 @@
             }
             
             .community-container {
-                margin: 0 auto;
+                margin: 50px auto 40px;
+            }
+            
+            .projects-section {
+                margin: 50px auto 50px;
             }
         }
 
         /* Landscape orientation - All screens in horizontal mode */
         @media (orientation: landscape) and (max-height: 800px) {
+            html {
+                scroll-snap-type: none !important;
+            }
+            
             .section {
+                scroll-snap-align: none !important;
+                scroll-snap-stop: auto !important;
                 min-height: auto;
                 height: auto;
                 padding: 30px 20px;
                 justify-content: flex-start;
+                margin-bottom: 40px;
             }
             
             .section.first {
@@ -885,7 +934,7 @@
             }
             
             .section.second {
-                padding: 20px 20px 100px;
+                padding: 20px 20px 120px;
             }
             
             .neon-text {
@@ -935,12 +984,14 @@
             }
             
             footer {
-                margin-top: 20px;
+                margin: 40px auto 20px;
                 padding: 15px 30px;
                 position: relative;
                 bottom: auto;
                 left: auto;
                 transform: none;
+                z-index: 10;
+                clear: both;
             }
             
             .profile-wrapper {
@@ -962,8 +1013,15 @@
 
         /* Extra narrow landscape screens */
         @media (orientation: landscape) and (max-height: 600px) {
+            html {
+                scroll-snap-type: none !important;
+            }
+            
             .section {
+                scroll-snap-align: none !important;
+                scroll-snap-stop: auto !important;
                 padding: 15px 20px;
+                margin-bottom: 30px;
             }
             
             .section.first {
@@ -971,7 +1029,7 @@
             }
             
             .section.second {
-                padding: 15px 20px 60px;
+                padding: 15px 20px 100px;
             }
             
             .neon-text {
