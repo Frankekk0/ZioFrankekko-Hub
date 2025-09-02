@@ -35,16 +35,160 @@
         }
 
         html {
-            scroll-snap-type: y mandatory;
             scroll-behavior: smooth;
             overflow: hidden auto;
             color-scheme: dark;
+            /* NO scroll snap by default */
+            scroll-snap-type: none;
         }
         
-        /* Disable scroll snap on smaller screens */
-        @media (max-width: 1024px) {
+        .section {
+            /* NO scroll snap by default */
+            scroll-snap-align: none;
+            scroll-snap-stop: auto;
+        }
+        
+        /* Enable scroll snap ONLY on DESKTOP screens with enough space */
+        @media only screen and (min-width: 1025px) and (min-height: 800px) {
+            html {
+                scroll-snap-type: y mandatory !important;
+            }
+            
+            .section {
+                scroll-snap-align: start !important;
+                scroll-snap-stop: always !important;
+            }
+        }
+
+        /* Very large screens - Footer at bottom of second section */
+        @media (min-width: 1400px) and (min-height: 900px) {
+            .section.second {
+                min-height: 100vh;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                align-items: center;
+                padding: 60px 20px 0;
+            }
+            
+            .section.second .projects-section {
+                flex-grow: 1;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                margin: 0 auto;
+                max-width: 1200px;
+                width: 100%;
+            }
+            
+            .section.second .community-container {
+                margin: 40px auto;
+                max-width: 800px;
+            }
+            
+            .section.second footer {
+                margin: 40px auto 30px;
+                flex-shrink: 0;
+            }
+            
+            /* Center all elements properly */
+            .card, .social-grid, .projects-grid, .community-container {
+                margin-left: auto;
+                margin-right: auto;
+            }
+            
+            .social-grid {
+                max-width: 900px;
+            }
+            
+            .projects-grid {
+                max-width: 1000px;
+            }
+        }
+
+        /* Extra large screens - Even more spacing */
+        @media (min-width: 1800px) and (min-height: 1000px) {
+            .section {
+                padding: 80px 40px;
+            }
+            
+            .section.second {
+                padding: 80px 40px 0;
+            }
+            
+            .card {
+                max-width: 700px;
+            }
+            
+            .social-grid {
+                max-width: 1000px;
+                gap: 2.5rem;
+            }
+            
+            .projects-grid {
+                max-width: 1200px;
+            }
+            
+            .community-container {
+                max-width: 900px;
+            }
+            
+            footer {
+                max-width: 1000px;
+                padding: 25px 50px;
+            }
+        }
+        
+        /* Force disable scroll snap on ALL smaller screens and mobile */
+        @media only screen and (max-width: 1024px) {
             html {
                 scroll-snap-type: none !important;
+            }
+            
+            .section {
+                scroll-snap-align: none !important;
+                scroll-snap-stop: auto !important;
+            }
+        }
+
+        /* Force disable scroll snap on short screens even if wide */
+        @media only screen and (max-height: 799px) {
+            html {
+                scroll-snap-type: none !important;
+            }
+            
+            .section {
+                scroll-snap-align: none !important;
+                scroll-snap-stop: auto !important;
+            }
+        }
+
+        /* Reset layout for smaller screens - Override large screen rules */
+        @media (max-width: 1399px) {
+            .section.second {
+                display: flex !important;
+                flex-direction: column !important;
+                justify-content: center !important;
+                min-height: auto !important;
+                padding: 60px 20px !important;
+            }
+            
+            .section.second .projects-section {
+                flex-grow: 0 !important;
+                display: block !important;
+                margin: 60px auto 60px !important;
+                max-width: 1200px !important;
+                width: auto !important;
+            }
+            
+            .section.second .community-container {
+                margin: 60px auto 40px !important;
+            }
+            
+            .section.second footer {
+                margin: 60px auto 30px !important;
+                flex-shrink: 0 !important;
+                position: relative !important;
             }
         }
 
@@ -113,12 +257,10 @@
             50% { text-shadow: 0 0 3px #f5b845, 0 0 6px #f5b845, 0 0 12px #f5b845; }
         }
 
-        /* Sezioni per scroll snap */
+        /* Sezioni base - no scroll snap di default */
         .section {
             min-height: 100vh;
             height: auto;
-            scroll-snap-align: start;
-            scroll-snap-stop: always;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -720,13 +862,7 @@
 
         /* Medium screens - Tablet/Small Desktop - Disable scroll snap for smaller screens */
         @media (max-width: 1024px) and (min-width: 769px) {
-            html {
-                scroll-snap-type: none !important;
-            }
-            
             .section {
-                scroll-snap-align: none !important;
-                scroll-snap-stop: auto !important;
                 min-height: auto;
                 padding: 50px 25px;
             }
@@ -784,13 +920,7 @@
 
         /* Small screens - Mobile - No scroll snap */
         @media (max-width: 768px) {
-            html {
-                scroll-snap-type: none !important;
-            }
-            
             .section {
-                scroll-snap-align: none !important;
-                scroll-snap-stop: auto !important;
                 min-height: auto;
                 padding: 40px 15px;
             }
@@ -855,13 +985,7 @@
 
         /* Very small screens - No scroll snap */
         @media (max-width: 480px) {
-            html {
-                scroll-snap-type: none !important;
-            }
-            
             .section {
-                scroll-snap-align: none !important;
-                scroll-snap-stop: auto !important;
                 min-height: auto;
                 padding: 30px 10px;
             }
@@ -914,13 +1038,7 @@
 
         /* Landscape orientation - All screens in horizontal mode */
         @media (orientation: landscape) and (max-height: 800px) {
-            html {
-                scroll-snap-type: none !important;
-            }
-            
             .section {
-                scroll-snap-align: none !important;
-                scroll-snap-stop: auto !important;
                 min-height: auto;
                 height: auto;
                 padding: 30px 20px;
@@ -1013,13 +1131,7 @@
 
         /* Extra narrow landscape screens */
         @media (orientation: landscape) and (max-height: 600px) {
-            html {
-                scroll-snap-type: none !important;
-            }
-            
             .section {
-                scroll-snap-align: none !important;
-                scroll-snap-stop: auto !important;
                 padding: 15px 20px;
                 margin-bottom: 30px;
             }
@@ -1291,13 +1403,18 @@ document.addEventListener('DOMContentLoaded', function() {
     showSlide(0);
 });
 
-// Enhanced scroll snap with smooth animation
+// Enhanced scroll snap with smooth animation - ONLY on large screens
 let isScrolling = false;
 let scrollTimeout;
 
+// Check if scroll snap should be active
+function shouldEnableScrollSnap() {
+    return window.innerWidth >= 1025 && window.innerHeight >= 800;
+}
+
 // Detect scroll events and enhance snap behavior
 window.addEventListener('scroll', function() {
-    if (isScrolling) return;
+    if (!shouldEnableScrollSnap() || isScrolling) return;
     
     clearTimeout(scrollTimeout);
     isScrolling = true;
@@ -1307,8 +1424,13 @@ window.addEventListener('scroll', function() {
     }, 100);
 });
 
-// Enhanced wheel event handling for better snap control
+// Enhanced wheel event handling for better snap control - ONLY on large screens
 window.addEventListener('wheel', function(e) {
+    // Skip on small screens - allow normal scrolling
+    if (!shouldEnableScrollSnap()) {
+        return;
+    }
+    
     if (isScrolling) {
         e.preventDefault();
         return;
@@ -1348,6 +1470,13 @@ const totalSections = 2; // Prima e seconda sezione
 const navArrow = document.getElementById('navArrow');
 
 function updateArrowDirection() {
+    if (!shouldEnableScrollSnap()) {
+        // Su schermi piccoli: sempre freccia verso l'alto (back to top)
+        navArrow.classList.add('rotate-up');
+        return;
+    }
+    
+    // Su schermi grandi: logica normale
     if (currentSectionIndex >= totalSections - 1) {
         navArrow.classList.add('rotate-up');
     } else {
@@ -1360,6 +1489,20 @@ function navigateSection() {
     
     isScrolling = true;
     
+    if (!shouldEnableScrollSnap()) {
+        // Su schermi piccoli: sempre "back to top"
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+        
+        setTimeout(() => {
+            isScrolling = false;
+        }, 800);
+        return;
+    }
+    
+    // Su schermi grandi: comportamento scroll snap normale
     if (currentSectionIndex >= totalSections - 1) {
         // Siamo all'ultima sezione, torna all'inizio
         currentSectionIndex = 0;
@@ -1384,8 +1527,10 @@ function navigateSection() {
     }, 800);
 }
 
-// Aggiorna l'indice della sezione corrente durante lo scroll
+// Aggiorna l'indice della sezione corrente durante lo scroll - ONLY on large screens
 window.addEventListener('scroll', function() {
+    if (!shouldEnableScrollSnap()) return;
+    
     const newSectionIndex = Math.round(window.scrollY / window.innerHeight);
     if (newSectionIndex !== currentSectionIndex) {
         currentSectionIndex = newSectionIndex;
@@ -1395,6 +1540,11 @@ window.addEventListener('scroll', function() {
 
 // Inizializza la direzione della freccia
 document.addEventListener('DOMContentLoaded', function() {
+    updateArrowDirection();
+});
+
+// Aggiorna la freccia quando si ridimensiona la finestra
+window.addEventListener('resize', function() {
     updateArrowDirection();
 });
 </script>
