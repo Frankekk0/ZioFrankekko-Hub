@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZioFrankekko Hub - Mobile</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Beon&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="https://i.imgur.com/5dVv9sK.png">
+    
+    <style>
+        :root {
+            --neon-pink: #ff6371;
+            --neon-yellow: #f5b845;
+            --dark-bg: #141414;
+            --card-bg: rgba(20, 20, 20, 0.95);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #121212;
+            background-image: url('https://i.imgur.com/ixJsw2N.png');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-blend-mode: multiply;
+            color: #e0e0e0;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* Hide Scrollbar Completely */
+        ::-webkit-scrollbar {
+            display: none;
+        }
+        
+        html {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        /* Main Content */
+        .main-content {
+            padding: 25px 15px 15px 15px;
+        }
+
+        /* Profile Section */
+        .profile-section {
+            background: var(--dark-bg);
+            border-radius: 20px;
+            padding: 25px 18px;
+            margin: 0 10px 30px 10px;
+            text-align: center;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.8);
+        }
+
+        .profile-wrapper {
+            position: relative;
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 30px;
+        }
+
+        .profile-wrapper::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            background-image: url('https://i.imgur.com/hmtaPtS.png');
+            background-size: cover;
+            background-position: center;
+            filter: blur(10px) brightness(0.6);
+            z-index: 1;
+        }
+
+        .profile-wrapper img.profile {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            position: relative;
+            z-index: 2;
+        }
+
+        .profile-name {
+            font-family: 'Beon', cursive;
+            font-size: 1.6em;
+            margin-bottom: 25px;
+        }
+
+        .profile-name .pink {
+            color: var(--neon-pink);
+            text-shadow: 0 0 15px var(--neon-pink), 0 0 25px var(--neon-pink), 0 0 35px var(--neon-pink);
+        }
+
+        .profile-name .yellow {
+            color: var(--neon-yellow);
+            text-shadow: 0 0 15px var(--neon-yellow), 0 0 25px var(--neon-yellow), 0 0 35px var(--neon-yellow);
+        }
+
+        .profile-desc {
+            font-size: 0.95em;
+            line-height: 1.5;
+            margin-bottom: 20px;
+            opacity: 0.9;
+            padding: 0 5px;
+        }
+
+        /* Social Links Mobile - Clean Design */
+        .social-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 30px;
+            max-width: 320px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .social-card {
+            background: rgba(20, 20, 20, 0.8);
+            border-radius: 15px;
+            padding: 20px 12px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+            text-decoration: none;
+            color: #e0e0e0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 80px;
+        }
+
+        .social-card i {
+            font-size: 1.8em;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .social-card.twitch i { color: #9146ff; }
+        .social-card.youtube i { color: #ff0000; }
+        .social-card.discord i { color: #5865F2; }
+        .social-card.instagram i { 
+            background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .social-card span {
+            font-size: 0.75em;
+            font-weight: 600;
+            text-align: center;
+            line-height: 1.2;
+        }
+
+        /* Projects Section */
+        .projects-section {
+            background: var(--dark-bg);
+            border-radius: 20px;
+            padding: 25px 18px;
+            margin: 0 10px 30px 10px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.8);
+        }
+
+        /* Community Section */
+        .community-section {
+            background: var(--dark-bg);
+            border-radius: 20px;
+            padding: 25px 18px;
+            margin: 0 10px 30px 10px;
+            text-align: center;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.8);
+        }
+
+        .section-title .pink {
+            color: var(--neon-pink);
+            text-shadow: 0 0 10px var(--neon-pink);
+        }
+
+        .section-title .yellow {
+            color: var(--neon-yellow);
+            text-shadow: 0 0 10px var(--neon-yellow);
+        }
+
+        .community-desc {
+            font-size: 0.9em;
+            line-height: 1.5;
+            margin-bottom: 20px;
+            opacity: 0.9;
+            text-align: left;
+            padding: 0 5px;
+        }
+
+        .community-button {
+            display: inline-block;
+            padding: 12px 25px;
+            border-radius: 24px;
+            background-color: var(--neon-yellow);
+            color: #121212;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95em;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        .section-title {
+            font-family: 'Beon', cursive;
+            font-size: 1.5em;
+            text-align: center;
+            margin-bottom: 20px;
+            color: var(--neon-yellow);
+            text-shadow: 0 0 10px var(--neon-yellow);
+        }
+
+        /* Projects Carousel */
+        .projects-carousel {
+            position: relative;
+            overflow: hidden;
+            border-radius: 15px;
+            margin: 20px 0;
+        }
+
+        .projects-track {
+            display: flex;
+            transition: transform 0.3s ease;
+            align-items: stretch;
+        }
+
+        .project-card {
+            background: var(--dark-bg);
+            border-radius: 20px;
+            padding: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+            width: 100%;
+            flex-shrink: 0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .project-title {
+            font-size: 1.1em;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: var(--neon-pink);
+        }
+
+        .project-desc {
+            font-size: 0.9em;
+            line-height: 1.4;
+            margin-bottom: 12px;
+            opacity: 0.9;
+        }
+
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .project-tag {
+            background: rgba(245, 184, 69, 0.2);
+            color: var(--neon-yellow);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            font-weight: 600;
+            border: 1px solid rgba(245, 184, 69, 0.3);
+        }
+
+        /* Carousel Mobile */
+        .project-carousel {
+            position: relative;
+            margin: 15px 0;
+            border-radius: 10px;
+            overflow: hidden;
+            width: 100%;
+            aspect-ratio: 16/10;
+        }
+
+        .carousel-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .carousel-track {
+            display: flex;
+            height: 100%;
+        }
+
+        .carousel-slide {
+            min-width: 100%;
+            height: 100%;
+        }
+
+        .carousel-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            border-radius: 10px;
+            background: rgba(0, 0, 0, 0.1);
+        }
+
+        /* Projects Carousel Controls */
+        .projects-controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .projects-nav {
+            background: rgba(20, 20, 20, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--neon-yellow);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2em;
+            cursor: pointer;
+        }
+
+        .projects-dots {
+            display: flex;
+            gap: 8px;
+        }
+
+        .projects-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .projects-dot.active {
+            background: var(--neon-yellow);
+            box-shadow: 0 0 8px var(--neon-yellow);
+        }
+
+        /* Image Carousel Controls */
+        .carousel-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.6);
+            border: none;
+            color: white;
+            font-size: 1.2em;
+            padding: 12px 8px;
+            cursor: pointer;
+            border-radius: 5px;
+            backdrop-filter: blur(10px);
+        }
+
+        .carousel-nav.prev {
+            left: 10px;
+        }
+
+        .carousel-nav.next {
+            right: 10px;
+        }
+
+        .carousel-controls {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 6px;
+        }
+
+        .carousel-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.4);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .carousel-dot.active {
+            background: var(--neon-yellow);
+            box-shadow: 0 0 8px var(--neon-yellow);
+        }
+
+        /* Project Placeholder */
+        .project-placeholder {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #ff6371, #f5b845);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3rem;
+            position: relative;
+            min-height: 100%;
+        }
+
+        .project-placeholder::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+        }
+
+        /* Footer */
+        .mobile-footer {
+            background: rgba(20, 20, 20, 0.7);
+            padding: 20px 15px;
+            text-align: center;
+            margin-top: 40px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .mobile-footer p {
+            opacity: 0.6;
+            font-size: 0.75em;
+            margin: 0;
+            color: #ccc;
+        }
+
+        /* Touch Improvements */
+        .social-card, .project-card, .carousel-nav, .carousel-dot {
+            -webkit-tap-highlight-color: transparent;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Profile Section -->
+        <div class="profile-section" id="profile">
+            <div class="profile-name">
+                <span class="pink">Zio</span><span class="yellow">Frankekko</span>
+            </div>
+            <div class="profile-wrapper">
+                <img src="https://i.imgur.com/hmtaPtS.png" alt="Profilo" class="profile">
+            </div>
+            <div class="profile-desc">
+                Benvenuto nel mio hub creativo! Sono uno streamer e content creator appassionato di gaming, tecnologia e intrattenimento. Unisciti alla community per contenuti esclusivi e tanto divertimento!
+            </div>
+
+            <!-- Social Links Grid -->
+            <div class="social-grid">
+                <a href="https://www.instagram.com/frankekko_dono/" target="_blank" class="social-card instagram">
+                    <i class="fab fa-instagram"></i>
+                    <span>@frankekko_dono</span>
+                </a>
+                <a href="https://www.twitch.tv/ziofrankekko" target="_blank" class="social-card twitch">
+                    <i class="fab fa-twitch"></i>
+                    <span>@ziofrankekko</span>
+                </a>
+                <a href="https://discord.com/users/652166441193177088" target="_blank" class="social-card discord">
+                    <i class="fab fa-discord"></i>
+                    <span>ZioFrankekko#0001</span>
+                </a>
+                <a href="https://www.youtube.com/@ZioFrankekko" target="_blank" class="social-card youtube">
+                    <i class="fab fa-youtube"></i>
+                    <span>@ZioFrankekko</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Projects Section -->
+        <div class="projects-section" id="projects">
+            <h2 class="section-title">I Miei Progetti</h2>
+            
+            <div class="projects-carousel">
+                <div class="projects-track" id="projectsTrack">
+                    <!-- Progetto 1 -->
+                    <div class="project-card">
+                        <h3 class="project-title">Nuova Scheda by Frankekko</h3>
+                        <div class="project-carousel">
+                            <div class="carousel-container">
+                                <div class="carousel-track" id="carouselTrack">
+                                    <div class="carousel-slide">
+                                        <img src="assets/1.png" alt="Screenshot 1">
+                                    </div>
+                                    <div class="carousel-slide">
+                                        <img src="assets/2.png" alt="Screenshot 2">
+                                    </div>
+                                    <div class="carousel-slide">
+                                        <img src="assets/3.png" alt="Screenshot 3">
+                                    </div>
+                                    <div class="carousel-slide">
+                                        <img src="assets/4.png" alt="Screenshot 4">
+                                    </div>
+                                    <div class="carousel-slide">
+                                        <img src="assets/5.png" alt="Screenshot 5">
+                                    </div>
+                                    <div class="carousel-slide">
+                                        <img src="assets/6.png" alt="Screenshot 6">
+                                    </div>
+                                    <div class="carousel-slide">
+                                        <img src="assets/7.png" alt="Screenshot 7">
+                                    </div>
+                                </div>
+                                <button class="carousel-nav prev" onclick="changeSlide(-1)">
+                                    <i class="fas fa-chevron-left"></i>
+                                </button>
+                                <button class="carousel-nav next" onclick="changeSlide(1)">
+                                    <i class="fas fa-chevron-right"></i>
+                                </button>
+                                <div class="carousel-controls">
+                                    <div class="carousel-dot active" onclick="goToSlide(0)"></div>
+                                    <div class="carousel-dot" onclick="goToSlide(1)"></div>
+                                    <div class="carousel-dot" onclick="goToSlide(2)"></div>
+                                    <div class="carousel-dot" onclick="goToSlide(3)"></div>
+                                    <div class="carousel-dot" onclick="goToSlide(4)"></div>
+                                    <div class="carousel-dot" onclick="goToSlide(5)"></div>
+                                    <div class="carousel-dot" onclick="goToSlide(6)"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="project-desc">
+                            Un sistema innovativo di gestione schede personalizzate per il gaming. Interfaccia intuitiva, sistema di statistiche avanzato e integrazione con le principali piattaforme di streaming.
+                        </div>
+                        <div class="project-tags">
+                            <span class="project-tag">Gaming</span>
+                            <span class="project-tag">Streaming</span>
+                            <span class="project-tag">UI/UX</span>
+                        </div>
+                    </div>
+
+                    <!-- Progetto 2 -->
+                    <div class="project-card">
+                        <h3 class="project-title">Progetto Segreto</h3>
+                        <div class="project-carousel">
+                            <div class="carousel-container">
+                                <div class="project-placeholder">
+                                    📺
+                                </div>
+                            </div>
+                        </div>
+                        <div class="project-desc">
+                            Ancora work in progress! Un nuovo progetto entusiasmante è in sviluppo. Rimani sintonizzato per scoprire di cosa si tratta...
+                        </div>
+                        <div class="project-tags">
+                            <span class="project-tag">Work in Progress</span>
+                            <span class="project-tag">Coming Soon</span>
+                            <span class="project-tag">Mystery</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="projects-controls">
+                <button class="projects-nav" id="projectsPrev" onclick="changeProject(-1)">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <div class="projects-dots">
+                    <div class="projects-dot active" onclick="goToProject(0)"></div>
+                    <div class="projects-dot" onclick="goToProject(1)"></div>
+                </div>
+                <button class="projects-nav" id="projectsNext" onclick="changeProject(1)">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Community Section -->
+        <div class="community-section">
+            <h2 class="section-title">
+                <span class="yellow">Community</span> 
+                <span class="pink">U</span><span class="yellow">.</span><span class="pink">R</span><span class="yellow">.</span><span class="pink">R</span><span class="yellow">.</span><span class="pink">S</span><span class="yellow">.</span>
+            </h2>
+            <div class="community-desc">
+                U.R.R.S. è una community che ho fondato diversi anni fa e che è diventata una parte importante della mia vita. Nata dalla passione per il mondo otaku, questa community riunisce appassionati di anime, manga, videogiochi e cultura giapponese. Un luogo dove condividere esperienze, scoprire nuovi contenuti e creare legami autentici.
+            </div>
+            <a class="community-button" href="http://urrs.mywebcommunity.org/" target="_blank">
+                Visita il sito ufficiale
+            </a>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="mobile-footer">
+        <p>&copy; 2025 ZioFrankekko Hub - Versione Mobile</p>
+    </div>
+
+    <script>
+
+        // Image Carousel functionality (dentro i progetti)
+        let currentSlide = 0;
+        const totalSlides = 7;
+
+        function updateCarousel() {
+            const track = document.getElementById('carouselTrack');
+            const dots = document.querySelectorAll('.carousel-dot');
+            
+            track.style.transform = `translateX(-${currentSlide * 100}%)`;
+            
+            dots.forEach((dot, index) => {
+                dot.classList.toggle('active', index === currentSlide);
+            });
+        }
+
+        function changeSlide(direction) {
+            currentSlide += direction;
+            
+            if (currentSlide >= totalSlides) {
+                currentSlide = 0;
+            } else if (currentSlide < 0) {
+                currentSlide = totalSlides - 1;
+            }
+            
+            updateCarousel();
+        }
+
+        function goToSlide(slideIndex) {
+            currentSlide = slideIndex;
+            updateCarousel();
+        }
+
+        // Projects Carousel functionality
+        let currentProject = 0;
+        const totalProjects = 2;
+
+        function updateProjectsCarousel() {
+            const track = document.getElementById('projectsTrack');
+            const dots = document.querySelectorAll('.projects-dot');
+            
+            track.style.transform = `translateX(-${currentProject * 100}%)`;
+            
+            dots.forEach((dot, index) => {
+                dot.classList.toggle('active', index === currentProject);
+            });
+        }
+
+        function changeProject(direction) {
+            currentProject += direction;
+            
+            if (currentProject >= totalProjects) {
+                currentProject = 0;
+            } else if (currentProject < 0) {
+                currentProject = totalProjects - 1;
+            }
+            
+            updateProjectsCarousel();
+        }
+
+        function goToProject(projectIndex) {
+            currentProject = projectIndex;
+            updateProjectsCarousel();
+        }
+
+        // Auto-play image carousel (solo per le immagini del progetto)
+        let autoPlayInterval = setInterval(() => {
+            changeSlide(1);
+        }, 4000);
+
+        // Pause auto-play on interaction (solo per immagini)
+        const imageCarousel = document.querySelector('.project-carousel');
+        if (imageCarousel) {
+            imageCarousel.addEventListener('touchstart', () => {
+                clearInterval(autoPlayInterval);
+            });
+
+            imageCarousel.addEventListener('touchend', () => {
+                autoPlayInterval = setInterval(() => {
+                    changeSlide(1);
+                }, 4000);
+            });
+        }
+
+        // Touch swipe support SOLO per immagini carousel (non progetti)
+        let startX = 0;
+        let isDragging = false;
+        
+        // Swipe solo sul carousel delle immagini del primo progetto
+        const imageCarouselElement = document.getElementById('carouselTrack');
+        if (imageCarouselElement) {
+            const carouselContainer = imageCarouselElement.closest('.project-carousel');
+            
+            carouselContainer.addEventListener('touchstart', (e) => {
+                startX = e.touches[0].clientX;
+                isDragging = true;
+            });
+
+            carouselContainer.addEventListener('touchmove', (e) => {
+                if (!isDragging) return;
+                e.preventDefault();
+            });
+
+            carouselContainer.addEventListener('touchend', (e) => {
+                if (!isDragging) return;
+                
+                const endX = e.changedTouches[0].clientX;
+                const diff = startX - endX;
+                
+                if (Math.abs(diff) > 50) {
+                    if (diff > 0) {
+                        changeSlide(1); // Swipe left - next image
+                    } else {
+                        changeSlide(-1); // Swipe right - prev image
+                    }
+                }
+                
+                isDragging = false;
+            });
+        }
+
+    </script>
+</body>
+</html>
