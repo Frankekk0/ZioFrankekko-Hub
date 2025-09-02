@@ -76,6 +76,172 @@
             padding: 25px 15px 15px 15px;
         }
 
+        /* Mobile Project Popup - Simple */
+        .popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            display: none;
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .popup-overlay.active {
+            display: block;
+            opacity: 1;
+        }
+        
+        .popup-container {
+            width: 100%;
+            height: 100%;
+            padding: 15px;
+            overflow-y: auto;
+            position: relative;
+        }
+        
+        .popup-close {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            color: #000;
+            font-size: 1.5rem;
+            cursor: pointer;
+            z-index: 10;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            font-weight: bold;
+        }
+        
+        .popup-content {
+            padding-top: 70px;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        
+        .popup-title {
+            color: #fff;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        .popup-tags {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+        
+        .popup-tag {
+            background: rgba(255, 99, 113, 0.8);
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            color: white;
+        }
+        
+        .popup-gallery {
+            margin-bottom: 20px;
+        }
+        
+        .popup-carousel {
+            position: relative;
+            border-radius: 10px;
+            overflow: hidden;
+            background: #000;
+        }
+        
+        .popup-carousel-track {
+            display: flex;
+            transition: transform 0.4s ease;
+            transform: translateX(0%);
+        }
+        
+        .popup-carousel-slide {
+            min-width: 100%;
+            position: relative;
+        }
+        
+        .popup-carousel-slide img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            display: block;
+        }
+        
+        .popup-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.7);
+            border: none;
+            color: white;
+            font-size: 18px;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 5;
+        }
+        
+        .popup-nav-prev {
+            left: 10px;
+        }
+        
+        .popup-nav-next {
+            right: 10px;
+        }
+        
+        .popup-dots {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 15px;
+        }
+        
+        .popup-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .popup-dot.active {
+            background: white;
+        }
+        
+        .popup-description {
+            color: #fff;
+            line-height: 1.6;
+            font-size: 1rem;
+            text-align: left;
+        }
+        
+        /* Make project cards clickable */
+        .project-card {
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+        
+        .project-card:active {
+            transform: scale(0.98);
+        }
+
         /* Profile Section */
         .profile-section {
             background: var(--dark-bg);
@@ -636,6 +802,35 @@
         <p>&copy; 2025 ZioFrankekko Hub - Versione Mobile</p>
     </div>
 
+    <!-- Project Preview Popup -->
+    <div class="popup-overlay" id="popupOverlay">
+        <div class="popup-container" id="popupContainer">
+            <button class="popup-close" id="popupClose">&times;</button>
+            
+            <div class="popup-content">
+                <div class="popup-header">
+                    <h2 class="popup-title" id="popupTitle">Progetto</h2>
+                    <div class="popup-tags" id="popupTags"></div>
+                </div>
+                
+                <div class="popup-gallery">
+                    <div class="popup-carousel">
+                        <div class="popup-carousel-track" id="popupCarouselTrack">
+                            <!-- Images will be loaded here -->
+                        </div>
+                        <button class="popup-nav popup-nav-prev" id="popupPrev">‹</button>
+                        <button class="popup-nav popup-nav-next" id="popupNext">›</button>
+                    </div>
+                    <div class="popup-dots" id="popupDots"></div>
+                </div>
+                
+                <div class="popup-description" id="popupDescription">
+                    <p>Descrizione del progetto...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
 
         // Image Carousel functionality (dentro i progetti)
@@ -757,6 +952,180 @@
                 isDragging = false;
             });
         }
+
+        // Mobile Project Popup System
+        let currentPopupSlide = 0;
+        let popupTotalSlides = 0;
+        let popupTouchStartX = 0;
+        let popupTouchEndX = 0;
+
+        // Extract data from project card HTML for mobile
+        function extractMobileProjectData(card) {
+            const title = card.querySelector('.project-title')?.textContent || card.querySelector('h3')?.textContent || 'Progetto';
+            const description = card.querySelector('.project-desc')?.textContent || card.querySelector('p')?.textContent || 'Descrizione del progetto...';
+            const tagElements = card.querySelectorAll('.project-tag');
+            const tags = Array.from(tagElements).map(tag => tag.textContent);
+            
+            // Extract images from carousel or use default
+            let images = [];
+            const carouselImages = card.querySelectorAll('.carousel-image');
+            
+            if (carouselImages.length > 0) {
+                images = Array.from(carouselImages).map(img => img.src);
+            } else {
+                // For cards with placeholder, use default images
+                images = ['assets/1.png', 'assets/2.png', 'assets/3.png'];
+            }
+            
+            return { title, description, tags, images };
+        }
+
+        // Open mobile popup
+        function openMobilePopup(card) {
+            const project = extractMobileProjectData(card);
+            
+            const popup = document.getElementById('popupOverlay');
+            const title = document.getElementById('popupTitle');
+            const description = document.getElementById('popupDescription');
+            const tags = document.getElementById('popupTags');
+            const track = document.getElementById('popupCarouselTrack');
+            const dots = document.getElementById('popupDots');
+            
+            // Set content
+            title.textContent = project.title;
+            description.innerHTML = `<p>${project.description}</p>`;
+            
+            // Set tags
+            tags.innerHTML = project.tags.map(tag => 
+                `<span class="popup-tag">${tag}</span>`
+            ).join('');
+            
+            // Set images
+            track.innerHTML = project.images.map(img => 
+                `<div class="popup-carousel-slide"><img src="${img}" alt="${project.title}"></div>`
+            ).join('');
+            
+            // Set dots
+            popupTotalSlides = project.images.length;
+            dots.innerHTML = project.images.map((_, i) => 
+                `<div class="popup-dot ${i === 0 ? 'active' : ''}" onclick="goToPopupSlide(${i})"></div>`
+            ).join('');
+            
+            currentPopupSlide = 0;
+            updateMobilePopupCarousel();
+            
+            // Show popup
+            popup.style.display = 'block';
+            setTimeout(() => {
+                popup.classList.add('active');
+            }, 10);
+            
+            // Add touch events
+            addMobilePopupTouchEvents();
+            
+            // Prevent body scroll
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Close mobile popup
+        function closeMobilePopup() {
+            const popup = document.getElementById('popupOverlay');
+            popup.classList.remove('active');
+            
+            setTimeout(() => {
+                popup.style.display = 'none';
+                document.body.style.overflow = '';
+            }, 300);
+        }
+
+        // Navigate mobile popup carousel
+        function changeMobilePopupSlide(direction) {
+            currentPopupSlide += direction;
+            if (currentPopupSlide >= popupTotalSlides) currentPopupSlide = 0;
+            if (currentPopupSlide < 0) currentPopupSlide = popupTotalSlides - 1;
+            updateMobilePopupCarousel();
+        }
+
+        function goToPopupSlide(index) {
+            currentPopupSlide = index;
+            updateMobilePopupCarousel();
+        }
+
+        function updateMobilePopupCarousel() {
+            const track = document.getElementById('popupCarouselTrack');
+            const dots = document.querySelectorAll('.popup-dot');
+            
+            track.style.transform = `translateX(-${currentPopupSlide * 100}%)`;
+            
+            dots.forEach((dot, i) => {
+                dot.classList.toggle('active', i === currentPopupSlide);
+            });
+        }
+
+        // Touch events for mobile popup carousel
+        function addMobilePopupTouchEvents() {
+            const track = document.getElementById('popupCarouselTrack');
+            
+            track.addEventListener('touchstart', (e) => {
+                popupTouchStartX = e.touches[0].clientX;
+            }, { passive: true });
+            
+            track.addEventListener('touchmove', (e) => {
+                if (!popupTouchStartX) return;
+                
+                popupTouchEndX = e.touches[0].clientX;
+                const diff = popupTouchStartX - popupTouchEndX;
+                
+                // Add resistance effect
+                const resistance = Math.max(0.3, 1 - Math.abs(diff) / 200);
+                track.style.transform = `translateX(calc(-${currentPopupSlide * 100}% - ${diff * resistance}px))`;
+            }, { passive: true });
+            
+            track.addEventListener('touchend', () => {
+                if (!popupTouchStartX || !popupTouchEndX) return;
+                
+                const diff = popupTouchStartX - popupTouchEndX;
+                const threshold = 50;
+                
+                if (Math.abs(diff) > threshold) {
+                    if (diff > 0) {
+                        changeMobilePopupSlide(1); // Next
+                    } else {
+                        changeMobilePopupSlide(-1); // Previous
+                    }
+                } else {
+                    updateMobilePopupCarousel(); // Snap back
+                }
+                
+                popupTouchStartX = 0;
+                popupTouchEndX = 0;
+            }, { passive: true });
+        }
+
+        // Initialize mobile popup events
+        document.addEventListener('DOMContentLoaded', function() {
+            // Close button
+            document.getElementById('popupClose').addEventListener('click', closeMobilePopup);
+            
+            // Navigation buttons
+            document.getElementById('popupPrev').addEventListener('click', () => changeMobilePopupSlide(-1));
+            document.getElementById('popupNext').addEventListener('click', () => changeMobilePopupSlide(1));
+            
+            // Close on overlay click
+            document.getElementById('popupOverlay').addEventListener('click', function(e) {
+                if (e.target === this) {
+                    closeMobilePopup();
+                }
+            });
+            
+            // Add click handlers to project cards
+            const projectCards = document.querySelectorAll('.project-card');
+            projectCards.forEach((card) => {
+                card.addEventListener('click', () => {
+                    openMobilePopup(card);
+                });
+            });
+        });
 
     </script>
 </body>
