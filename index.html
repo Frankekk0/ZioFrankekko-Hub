@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="dark">
+    <meta name="theme-color" content="#121212">
     <title>ZioFrankekko Hub</title>
     
     <script>
@@ -29,12 +31,15 @@
         :root {
             --neon-pink: hsl(352, 100%, 70%);
             --neon-yellow: hsl(42, 84%, 61%);
+            color-scheme: dark;
         }
 
         html {
             scroll-snap-type: y mandatory;
             scroll-behavior: smooth;
             overflow-y: auto;
+            overflow-x: hidden;
+            color-scheme: dark;
         }
 
         body {
@@ -48,7 +53,6 @@
             background-attachment: fixed;
             background-blend-mode: multiply;
             color: #e0e0e0;
-            overflow-x: hidden;
         }
 
         /* Custom Scrollbar */
@@ -105,7 +109,8 @@
 
         /* Sezioni per scroll snap */
         .section {
-            height: 100vh;
+            min-height: 100vh;
+            height: auto;
             scroll-snap-align: start;
             scroll-snap-stop: always;
             display: flex;
@@ -633,12 +638,9 @@
             text-align: center;
             box-shadow: 0 -20px 40px rgba(0, 0, 0, 0.9);
             border-radius: 34px;
-            margin: 0 auto;
+            margin: 20px auto 0;
             max-width: 1200px;
-            position: absolute;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
+            position: relative;
             z-index: 1;
         }
 
@@ -706,7 +708,72 @@
             }
         }
 
+        /* Medium screens - Tablet/Small Desktop - Disable scroll snap for smaller screens */
+        @media (max-width: 1024px) and (min-width: 769px) {
+            html {
+                scroll-snap-type: none;
+            }
+            
+            .section {
+                scroll-snap-align: none;
+                scroll-snap-stop: auto;
+                min-height: auto;
+                padding: 50px 25px;
+            }
+            
+            .neon-text {
+                font-size: 2.8em;
+            }
+            
+            .community-title {
+                font-size: 2.2em;
+            }
+            
+            .projects-title {
+                font-size: 2.2em;
+            }
+            
+            .social-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 1.5rem;
+                max-width: 800px;
+                margin: 0 auto;
+            }
+            
+            .projects-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+                max-width: 700px;
+                margin: 0 auto;
+            }
+            
+            .project-card {
+                margin: 0 auto;
+            }
+            
+            .card {
+                max-width: 550px;
+                margin: 0 auto 40px auto;
+            }
+            
+            footer {
+                max-width: 800px;
+            }
+        }
+
+        /* Small screens - Mobile - No scroll snap */
         @media (max-width: 768px) {
+            html {
+                scroll-snap-type: none;
+            }
+            
+            .section {
+                scroll-snap-align: none;
+                scroll-snap-stop: auto;
+                min-height: auto;
+                padding: 40px 15px;
+            }
+            
             .neon-text {
                 font-size: 2.5em;
             }
@@ -718,10 +785,7 @@
             .social-grid {
                 grid-template-columns: 1fr;
                 gap: 2rem;
-            }
-            
-            .section {
-                padding: 40px 15px;
+                margin: 0 auto;
             }
             
             .projects-title {
@@ -731,6 +795,21 @@
             .projects-grid {
                 grid-template-columns: 1fr;
                 gap: 1.5rem;
+                margin: 0 auto;
+                max-width: 100%;
+            }
+            
+            .project-card {
+                margin: 0 auto;
+                max-width: 100%;
+            }
+            
+            .card {
+                margin: 0 auto 40px auto;
+            }
+            
+            .community-container {
+                margin: 0 auto;
             }
             
             footer {
@@ -739,6 +818,209 @@
                 left: auto;
                 transform: none;
                 margin-top: 40px;
+            }
+        }
+
+        /* Very small screens - No scroll snap */
+        @media (max-width: 480px) {
+            html {
+                scroll-snap-type: none;
+            }
+            
+            .section {
+                scroll-snap-align: none;
+                scroll-snap-stop: auto;
+                min-height: auto;
+                padding: 30px 10px;
+            }
+            
+            .neon-text {
+                font-size: 2em;
+            }
+            
+            .community-title, .projects-title {
+                font-size: 1.8em;
+            }
+            
+            .card {
+                padding: 25px 20px;
+                margin: 0 auto 20px auto;
+            }
+            
+            .social-grid {
+                margin: 0 auto;
+            }
+            
+            .social-card {
+                min-height: 100px;
+                padding: 1rem;
+                margin: 0 auto;
+            }
+            
+            .projects-grid {
+                margin: 0 auto;
+            }
+            
+            .project-card {
+                margin: 0 auto;
+            }
+            
+            .community-container {
+                margin: 0 auto;
+            }
+        }
+
+        /* Landscape orientation - All screens in horizontal mode */
+        @media (orientation: landscape) and (max-height: 800px) {
+            .section {
+                min-height: auto;
+                height: auto;
+                padding: 30px 20px;
+                justify-content: flex-start;
+            }
+            
+            .section.first {
+                justify-content: center;
+                padding: 20px 20px;
+            }
+            
+            .section.second {
+                padding: 20px 20px 100px;
+            }
+            
+            .neon-text {
+                font-size: 2.2em;
+                margin-bottom: 15px;
+            }
+            
+            .community-title, .projects-title {
+                font-size: 1.8em;
+                margin-bottom: 20px;
+            }
+            
+            .card {
+                padding: 25px 30px;
+                margin-bottom: 25px;
+                max-width: 550px;
+            }
+            
+            .card-body {
+                margin-bottom: 20px;
+                max-width: 80%;
+                margin-left: 10%;
+            }
+            
+            .social-grid {
+                gap: 1.5rem;
+                margin-bottom: 20px;
+            }
+            
+            .social-card {
+                padding: 1rem;
+                min-height: 90px;
+            }
+            
+            .community-container {
+                padding: 30px 25px;
+                margin-bottom: 20px;
+            }
+            
+            .projects-section {
+                margin-bottom: 30px;
+            }
+            
+            .projects-grid {
+                gap: 1.5rem;
+                margin-bottom: 20px;
+            }
+            
+            footer {
+                margin-top: 20px;
+                padding: 15px 30px;
+                position: relative;
+                bottom: auto;
+                left: auto;
+                transform: none;
+            }
+            
+            .profile-wrapper {
+                width: 90px;
+                height: 90px;
+                margin-bottom: 10px;
+            }
+            
+            .profile-wrapper::before {
+                width: 100px;
+                height: 100px;
+            }
+            
+            .profile-wrapper img.profile {
+                width: 90px;
+                height: 90px;
+            }
+        }
+
+        /* Extra narrow landscape screens */
+        @media (orientation: landscape) and (max-height: 600px) {
+            .section {
+                padding: 15px 20px;
+            }
+            
+            .section.first {
+                padding: 10px 20px;
+            }
+            
+            .section.second {
+                padding: 15px 20px 60px;
+            }
+            
+            .neon-text {
+                font-size: 1.8em;
+                margin-bottom: 10px;
+            }
+            
+            .community-title, .projects-title {
+                font-size: 1.6em;
+                margin-bottom: 15px;
+            }
+            
+            .card {
+                padding: 20px 25px;
+                margin-bottom: 15px;
+            }
+            
+            .card-body {
+                margin-bottom: 15px;
+            }
+            
+            .social-grid {
+                gap: 1rem;
+                margin-bottom: 15px;
+            }
+            
+            .social-card {
+                padding: 0.8rem;
+                min-height: 75px;
+            }
+            
+            .community-container {
+                padding: 20px;
+            }
+            
+            .profile-wrapper {
+                width: 70px;
+                height: 70px;
+                margin-bottom: 8px;
+            }
+            
+            .profile-wrapper::before {
+                width: 80px;
+                height: 80px;
+            }
+            
+            .profile-wrapper img.profile {
+                width: 70px;
+                height: 70px;
             }
         }
     </style>

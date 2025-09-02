@@ -3,7 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="dark">
+    <meta name="theme-color" content="#121212">
     <title>ZioFrankekko Hub - Mobile</title>
+    
+    <script>
+        // Desktop detection and redirect
+        function isDesktopDevice() {
+            return !/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) && 
+                   (window.innerWidth > 1024 || (window.innerWidth > 768 && window.innerHeight > 1024));
+        }
+        
+        // Redirect to desktop version if on desktop/tablet device
+        if (isDesktopDevice() && !window.location.search.includes('mobile=true')) {
+            window.location.href = 'index.html';
+        }
+    </script>
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="icon" type="image/png" href="https://i.imgur.com/5dVv9sK.png">
@@ -19,12 +35,17 @@
             --neon-yellow: #f5b845;
             --dark-bg: #141414;
             --card-bg: rgba(20, 20, 20, 0.95);
+            color-scheme: dark;
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+        }
+
+        html {
+            color-scheme: dark;
         }
 
         body {
