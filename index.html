@@ -2080,11 +2080,113 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
     
-    // Add click handlers to project cards
+    // Enhanced click handlers for project cards - avoid conflicts with carousel
+    let isInteractingWithCarousel = false;
+    let startTime = 0;
+    let startX = 0;
+    let startY = 0;
+    
     const projectCards = document.querySelectorAll('.project-card');
     projectCards.forEach((card) => {
-        card.addEventListener('click', () => {
-            openPopup(card);
+        const carouselArea = card.querySelector('.carousel-container');
+        
+        // Track carousel interactions
+        if (carouselArea) {
+            carouselArea.addEventListener('mousedown', (e) => {
+                isInteractingWithCarousel = true;
+                startTime = Date.now();
+                startX = e.clientX;
+                startY = e.clientY;
+            });
+            
+            carouselArea.addEventListener('touchstart', (e) => {
+                isInteractingWithCarousel = true;
+                startTime = Date.now();
+                startX = e.touches[0].clientX;
+                startY = e.touches[0].clientY;
+            }, { passive: true });
+            
+            carouselArea.addEventListener('mousemove', (e) => {
+                if (isInteractingWithCarousel) {
+                    const moveX = Math.abs(e.clientX - startX);
+                    const moveY = Math.abs(e.clientY - startY);
+                    if (moveX > 10 || moveY > 10) {
+                        // User is dragging, not just clicking
+                    }
+                }
+            });
+            
+            carouselArea.addEventListener('touchmove', (e) => {
+                if (isInteractingWithCarousel) {
+                    const currentTouchX = e.touches[0].clientX;
+                    const currentTouchY = e.touches[0].clientY;
+                    const moveX = Math.abs(currentTouchX - startX);
+                    const moveY = Math.abs(currentTouchY - startY);
+                    
+                    // If horizontal movement is dominant, add visual feedback
+                    if (moveX > moveY && moveX > 10) {
+                        e.preventDefault();
+                        const carouselWrapper = carouselArea.querySelector('.carousel-wrapper');
+                        if (carouselWrapper) {
+                            const moveDistance = currentTouchX - startX;
+                            const resistance = Math.max(0.3, 1 - Math.abs(moveDistance) / 300);
+                            carouselWrapper.style.transform = `translateX(calc(-${slideIndex * (100/7)}% + ${moveDistance * resistance}px))`;
+                            carouselWrapper.style.transition = 'none';
+                        }
+                    }
+                }
+            }, { passive: false });
+            
+            carouselArea.addEventListener('mouseup', () => {
+                setTimeout(() => {
+                    isInteractingWithCarousel = false;
+                }, 100);
+            });
+            
+            carouselArea.addEventListener('touchend', (e) => {
+                if (isInteractingWithCarousel) {
+                    const carouselWrapper = carouselArea.querySelector('.carousel-wrapper');
+                    if (carouselWrapper) {
+                        const endX = e.changedTouches[0].clientX;
+                        const diff = startX - endX;
+                        
+                        // Reset transition for smooth snap
+                        carouselWrapper.style.transition = 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
+                        
+                        if (Math.abs(diff) > 50) {
+                            if (diff > 0) {
+                                changeSlide(1); // Swipe left - next image
+                            } else {
+                                changeSlide(-1); // Swipe right - prev image
+                            }
+                        } else {
+                            // Snap back to current position
+                            carouselWrapper.style.transform = `translateX(-${slideIndex * (100/7)}%)`;
+                        }
+                    }
+                }
+                
+                setTimeout(() => {
+                    isInteractingWithCarousel = false;
+                }, 100);
+            });
+        }
+        
+        // Card click handler - only if not interacting with carousel
+        card.addEventListener('click', (e) => {
+            // Don't open popup if clicking on carousel controls
+            if (e.target.closest('.carousel-nav') || 
+                e.target.closest('.carousel-dot') ||
+                isInteractingWithCarousel) {
+                return;
+            }
+            
+            // Add small delay to ensure carousel interaction detection
+            setTimeout(() => {
+                if (!isInteractingWithCarousel) {
+                    openPopup(card);
+                }
+            }, 50);
         });
     });
 });
