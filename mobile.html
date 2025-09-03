@@ -22,7 +22,7 @@
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <link rel="icon" type="image/png" href="https://i.imgur.com/5dVv9sK.png">
+    <link rel="icon" href="https://i.imgur.com/hmtaPtS.png">
     
     <style>
         @font-face {
@@ -145,12 +145,13 @@
         }
         
         .popup-tag {
-            background: rgba(255, 99, 113, 0.8);
+            background: rgba(245, 184, 69, 0.2);
+            color: #f5b845;
             padding: 5px 12px;
             border-radius: 15px;
             font-size: 0.8rem;
-            font-weight: bold;
-            color: white;
+            font-weight: 600;
+            border: 1px solid rgba(245, 184, 69, 0.3);
         }
         
         .popup-gallery {
@@ -206,10 +207,14 @@
         }
         
         .popup-dots {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
             display: flex;
             justify-content: center;
             gap: 8px;
-            margin-top: 15px;
+            z-index: 3;
         }
         
         .popup-dot {
@@ -602,7 +607,7 @@
         /* Project Placeholder */
         .project-placeholder {
             width: 100%;
-            height: 100%;
+            height: 250px;
             background: linear-gradient(135deg, #ff6371, #f5b845);
             border-radius: 10px;
             display: flex;
@@ -611,7 +616,21 @@
             color: white;
             font-size: 3rem;
             position: relative;
-            min-height: 100%;
+        }
+        
+        /* Project Placeholder in popup - same height as images */
+        .popup-carousel-slide .project-placeholder {
+            width: 100%;
+            height: 250px;
+            background: linear-gradient(135deg, #ff6371, #f5b845);
+            border-radius: 10px;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3rem;
+            position: relative;
         }
 
         .project-placeholder::after {
@@ -916,9 +935,12 @@
             });
         }
 
-        // Touch swipe support SOLO per immagini carousel (non progetti)
+        // Enhanced touch swipe support for image carousel
         let startX = 0;
+        let startY = 0;
+        let currentX = 0;
         let isDragging = false;
+        let isHorizontalSwipe = false;
         
         // Swipe solo sul carousel delle immagini del primo progetto
         const imageCarouselElement = document.getElementById('carouselTrack');
@@ -927,19 +949,59 @@
             
             carouselContainer.addEventListener('touchstart', (e) => {
                 startX = e.touches[0].clientX;
-                isDragging = true;
-            });
+                startY = e.touches[0].clientY;
+                currentX = startX;
+                isDragging = false;
+                isHorizontalSwipe = false;
+            }, { passive: true });
 
             carouselContainer.addEventListener('touchmove', (e) => {
-                if (!isDragging) return;
-                e.preventDefault();
-            });
+                if (!startX) return;
+                
+                const currentTouchX = e.touches[0].clientX;
+                const currentTouchY = e.touches[0].clientY;
+                const diffX = Math.abs(currentTouchX - startX);
+                const diffY = Math.abs(currentTouchY - startY);
+                
+                // Determine if this is a horizontal or vertical swipe
+                if (!isDragging && !isHorizontalSwipe) {
+                    if (diffX > diffY && diffX > 10) {
+                        isHorizontalSwipe = true;
+                        isDragging = true;
+                    } else if (diffY > diffX && diffY > 10) {
+                        // This is a vertical scroll, don't interfere
+                        return;
+                    }
+                }
+                
+                if (isDragging && isHorizontalSwipe) {
+                    e.preventDefault();
+                    currentX = currentTouchX;
+                    
+                    // Add visual feedback - follow finger movement
+                    const moveDistance = currentTouchX - startX;
+                    const resistance = Math.max(0.3, 1 - Math.abs(moveDistance) / 300);
+                    imageCarouselElement.style.transform = `translateX(calc(-${currentSlideIndex * 100}% + ${moveDistance * resistance}px))`;
+                    imageCarouselElement.style.transition = 'none';
+                }
+            }, { passive: false });
 
             carouselContainer.addEventListener('touchend', (e) => {
-                if (!isDragging) return;
+                if (!isDragging || !isHorizontalSwipe) {
+                    // Reset states
+                    startX = 0;
+                    startY = 0;
+                    currentX = 0;
+                    isDragging = false;
+                    isHorizontalSwipe = false;
+                    return;
+                }
                 
-                const endX = e.changedTouches[0].clientX;
+                const endX = currentX;
                 const diff = startX - endX;
+                
+                // Reset transition for smooth snap
+                imageCarouselElement.style.transition = 'transform 0.3s ease';
                 
                 if (Math.abs(diff) > 50) {
                     if (diff > 0) {
@@ -947,10 +1009,18 @@
                     } else {
                         changeSlide(-1); // Swipe right - prev image
                     }
+                } else {
+                    // Snap back to current position
+                    imageCarouselElement.style.transform = `translateX(-${currentSlideIndex * 100}%)`;
                 }
                 
+                // Reset states
+                startX = 0;
+                startY = 0;
+                currentX = 0;
                 isDragging = false;
-            });
+                isHorizontalSwipe = false;
+            }, { passive: true });
         }
 
         // Mobile Project Popup System
@@ -966,18 +1036,26 @@
             const tagElements = card.querySelectorAll('.project-tag');
             const tags = Array.from(tagElements).map(tag => tag.textContent);
             
-            // Extract images from carousel or use default
+            // Extract images from carousel or use placeholder
             let images = [];
-            const carouselImages = card.querySelectorAll('.carousel-image');
+            let isPlaceholder = false;
+            const carouselImages = card.querySelectorAll('.carousel-slide img');
+            const placeholderElement = card.querySelector('.project-placeholder');
             
             if (carouselImages.length > 0) {
                 images = Array.from(carouselImages).map(img => img.src);
+            } else if (placeholderElement) {
+                // For cards with emoji placeholder, keep the placeholder
+                const emoji = placeholderElement.textContent.trim();
+                images = [emoji];
+                isPlaceholder = true;
             } else {
-                // For cards with placeholder, use default images
-                images = ['assets/1.png', 'assets/2.png', 'assets/3.png'];
+                // Fallback
+                images = ['📺'];
+                isPlaceholder = true;
             }
             
-            return { title, description, tags, images };
+            return { title, description, tags, images, isPlaceholder };
         }
 
         // Open mobile popup
@@ -1000,10 +1078,16 @@
                 `<span class="popup-tag">${tag}</span>`
             ).join('');
             
-            // Set images
-            track.innerHTML = project.images.map(img => 
-                `<div class="popup-carousel-slide"><img src="${img}" alt="${project.title}"></div>`
-            ).join('');
+            // Set images or placeholder
+            if (project.isPlaceholder) {
+                track.innerHTML = project.images.map(emoji => 
+                    `<div class="popup-carousel-slide"><div class="project-placeholder">${emoji}</div></div>`
+                ).join('');
+            } else {
+                track.innerHTML = project.images.map(img => 
+                    `<div class="popup-carousel-slide"><img src="${img}" alt="${project.title}"></div>`
+                ).join('');
+            }
             
             // Set dots
             popupTotalSlides = project.images.length;
@@ -1030,11 +1114,16 @@
         // Close mobile popup
         function closeMobilePopup() {
             const popup = document.getElementById('popupOverlay');
-            popup.classList.remove('active');
+            
+            // Smooth fade out animation
+            popup.style.opacity = '0';
             
             setTimeout(() => {
+                popup.classList.remove('active');
                 popup.style.display = 'none';
                 document.body.style.overflow = '';
+                // Reset for next time
+                popup.style.opacity = '';
             }, 300);
         }
 
