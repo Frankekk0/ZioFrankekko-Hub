@@ -101,6 +101,9 @@
             padding: 15px;
             overflow-y: auto;
             position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         
         .popup-close {
@@ -123,9 +126,10 @@
         }
         
         .popup-content {
-            padding-top: 70px;
+            padding: 20px;
             max-width: 500px;
             margin: 0 auto;
+            width: 100%;
         }
         
         .popup-title {
@@ -207,27 +211,29 @@
         }
         
         .popup-dots {
-            position: absolute;
-            bottom: 10px;
-            left: 50%;
-            transform: translateX(-50%);
+            position: relative;
+            bottom: auto;
+            left: auto;
+            transform: none;
             display: flex;
             justify-content: center;
             gap: 8px;
             z-index: 3;
+            margin: 15px 0 20px 0;
         }
         
         .popup-dot {
             width: 10px;
             height: 10px;
             border-radius: 50%;
-            background: rgba(255, 255, 255, 0.5);
+            background: rgba(255, 255, 255, 0.4);
             cursor: pointer;
             transition: all 0.3s ease;
         }
         
         .popup-dot.active {
-            background: white;
+            background: var(--neon-yellow);
+            box-shadow: 0 0 8px var(--neon-yellow);
         }
         
         .popup-description {
@@ -235,6 +241,64 @@
             line-height: 1.6;
             font-size: 1rem;
             text-align: left;
+        }
+        
+        /* Download area styling - mobile version */
+        .popup-download-area {
+            margin-top: 20px;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .download-title {
+            color: var(--neon-yellow);
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            justify-content: center;
+        }
+        
+        .download-buttons {
+            display: flex;
+            gap: 10px;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .download-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 10px 18px;
+            background: rgba(160, 160, 160, 0.15);
+            color: #ccc;
+            text-decoration: none;
+            border-radius: 15px;
+            font-weight: 500;
+            border: 1px solid rgba(160, 160, 160, 0.25);
+            cursor: pointer;
+            font-size: 0.85rem;
+            width: 100%;
+            max-width: 280px;
+        }
+        
+        
+        .download-btn.coming-soon {
+            background: rgba(255, 255, 255, 0.15);
+            color: #ccc;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            cursor: not-allowed;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+        
+        .browser-icon {
+            font-size: 1.1em;
         }
         
         /* Make project cards clickable */
@@ -665,6 +729,18 @@
         .social-card, .project-card, .carousel-nav, .carousel-dot {
             -webkit-tap-highlight-color: transparent;
         }
+
+        /* Card header styling to match desktop */
+        .card-header {
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        .card-header p {
+            font-size: 0.95em;
+            color: #aaa;
+            margin: 8px 0 0 0;
+        }
     </style>
 </head>
 <body>
@@ -676,11 +752,15 @@
             <div class="profile-name">
                 <span class="pink">Zio</span><span class="yellow">Frankekko</span>
             </div>
-            <div class="profile-wrapper">
-                <img src="https://i.imgur.com/hmtaPtS.png" alt="Profilo" class="profile">
+            <div class="card-header">
+                <div class="profile-wrapper">
+                    <img src="https://i.imgur.com/hmtaPtS.png" alt="Profilo" class="profile">
+                </div>
+                <p>Streamer & Creator • Developer</p>
             </div>
             <div class="profile-desc">
-                Benvenuto nel mio hub creativo! Sono uno streamer e content creator appassionato di gaming, tecnologia e intrattenimento. Unisciti alla community per contenuti esclusivi e tanto divertimento!
+                Ciao! Sono ZioFrankekko, appassionato di tech, streaming, Gaming e Anime.  
+                Qui trovi i miei canali e social principali:
             </div>
 
             <!-- Social Links Grid -->
@@ -717,25 +797,25 @@
                             <div class="carousel-container">
                                 <div class="carousel-track" id="carouselTrack">
                                     <div class="carousel-slide">
-                                        <img src="assets/1.png" alt="Screenshot 1">
+                                        <img src="assets/projects/nuova-scheda/1.png" alt="Screenshot 1">
                                     </div>
                                     <div class="carousel-slide">
-                                        <img src="assets/2.png" alt="Screenshot 2">
+                                        <img src="assets/projects/nuova-scheda/2.png" alt="Screenshot 2">
                                     </div>
                                     <div class="carousel-slide">
-                                        <img src="assets/3.png" alt="Screenshot 3">
+                                        <img src="assets/projects/nuova-scheda/3.png" alt="Screenshot 3">
                                     </div>
                                     <div class="carousel-slide">
-                                        <img src="assets/4.png" alt="Screenshot 4">
+                                        <img src="assets/projects/nuova-scheda/4.png" alt="Screenshot 4">
                                     </div>
                                     <div class="carousel-slide">
-                                        <img src="assets/5.png" alt="Screenshot 5">
+                                        <img src="assets/projects/nuova-scheda/5.png" alt="Screenshot 5">
                                     </div>
                                     <div class="carousel-slide">
-                                        <img src="assets/6.png" alt="Screenshot 6">
+                                        <img src="assets/projects/nuova-scheda/6.png" alt="Screenshot 6">
                                     </div>
                                     <div class="carousel-slide">
-                                        <img src="assets/7.png" alt="Screenshot 7">
+                                        <img src="assets/projects/nuova-scheda/7.png" alt="Screenshot 7">
                                     </div>
                                 </div>
                                 <button class="carousel-nav prev" onclick="changeSlide(-1)">
@@ -756,11 +836,12 @@
                             </div>
                         </div>
                         <div class="project-desc">
-                            Un sistema innovativo di gestione schede personalizzate per il gaming. Interfaccia intuitiva, sistema di statistiche avanzato e integrazione con le principali piattaforme di streaming.
+                            Estensione Chrome altamente personalizzabile per la nuova scheda del browser. Personalizza colori, GIF, layout e molto altro. Include funzioni per meteo, widget dinamici e infinite opzioni di customizzazione.
                         </div>
                         <div class="project-tags">
-                            <span class="project-tag">Gaming</span>
-                            <span class="project-tag">Streaming</span>
+                            <span class="project-tag">Chrome Extension</span>
+                            <span class="project-tag">JavaScript</span>
+                            <span class="project-tag">Customization</span>
                             <span class="project-tag">UI/UX</span>
                         </div>
                     </div>
@@ -781,6 +862,7 @@
                         <div class="project-tags">
                             <span class="project-tag">Work in Progress</span>
                             <span class="project-tag">Coming Soon</span>
+                            <span class="project-tag">Mystery</span>
                             <span class="project-tag">Mystery</span>
                         </div>
                     </div>
@@ -845,6 +927,17 @@
                 
                 <div class="popup-description" id="popupDescription">
                     <p>Descrizione del progetto...</p>
+                </div>
+                
+                <!-- Download Area -->
+                <div class="popup-download-area" id="popupDownloadArea" style="display: none;">
+                    <div class="download-title">
+                        <i class="fas fa-download"></i>
+                        <span>Link e Download</span>
+                    </div>
+                    <div class="download-buttons" id="downloadButtons">
+                        <!-- Buttons will be generated here -->
+                    </div>
                 </div>
             </div>
         </div>
@@ -1098,6 +1191,9 @@
             currentPopupSlide = 0;
             updateMobilePopupCarousel();
             
+            // Setup download area
+            setupMobileDownloadArea(project.title);
+            
             // Show popup
             popup.style.display = 'block';
             setTimeout(() => {
@@ -1149,6 +1245,42 @@
             dots.forEach((dot, i) => {
                 dot.classList.toggle('active', i === currentPopupSlide);
             });
+        }
+        
+        // Setup download area based on project - mobile version
+        function setupMobileDownloadArea(projectTitle) {
+            const downloadArea = document.getElementById('popupDownloadArea');
+            const downloadButtons = document.getElementById('downloadButtons');
+            
+            // Clear existing buttons
+            downloadButtons.innerHTML = '';
+            
+            if (projectTitle.includes('Nuova Scheda')) {
+                // Chrome extension project
+                downloadButtons.innerHTML = `
+                    <a href="#" class="download-btn" onclick="alert('Link Chrome Web Store coming soon!')">
+                        <img src="assets/projects/nuova-scheda/chrome-icon.png" alt="Chrome" style="width: 18px; height: 18px;">
+                        <span>Chrome Web Store</span>
+                    </a>
+                    <a href="#" class="download-btn" onclick="alert('Firefox Add-ons coming soon!')">
+                        <img src="assets/projects/nuova-scheda/firefox-icon.png" alt="Firefox" style="width: 18px; height: 18px;">
+                        <span>Firefox Add-ons</span>
+                    </a>
+                `;
+                downloadArea.style.display = 'block';
+            } else if (projectTitle.includes('Progetto Segreto')) {
+                // Secret project
+                downloadButtons.innerHTML = `
+                    <button class="download-btn coming-soon" disabled>
+                        <i class="fas fa-clock"></i>
+                        <span>In Arrivo</span>
+                    </button>
+                `;
+                downloadArea.style.display = 'block';
+            } else {
+                // Hide download area for other projects
+                downloadArea.style.display = 'none';
+            }
         }
 
         // Touch events for mobile popup carousel

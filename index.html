@@ -38,25 +38,23 @@
             scroll-behavior: smooth;
             overflow: hidden auto;
             color-scheme: dark;
-            /* NO scroll snap by default */
             scroll-snap-type: none;
         }
         
         .section {
-            /* NO scroll snap by default */
             scroll-snap-align: none;
-            scroll-snap-stop: auto;
+            scroll-snap-stop: normal;
         }
         
-        /* Enable scroll snap ONLY on DESKTOP screens with enough space */
-        @media only screen and (min-width: 1025px) and (min-height: 800px) {
+        /* Enable scroll snap ONLY on very large desktop screens */
+        @media only screen and (min-width: 1400px) and (min-height: 1000px) {
             html {
-                scroll-snap-type: y mandatory !important;
+                scroll-snap-type: y mandatory;
             }
             
             .section {
-                scroll-snap-align: start !important;
-                scroll-snap-stop: always !important;
+                scroll-snap-align: start;
+                scroll-snap-stop: normal;
             }
         }
 
@@ -139,27 +137,15 @@
             }
         }
         
-        /* Force disable scroll snap on ALL smaller screens and mobile */
-        @media only screen and (max-width: 1024px) {
+        /* Disable scroll snap on smaller screens and mobile */
+        @media (max-width: 1399px), (max-height: 999px) {
             html {
                 scroll-snap-type: none !important;
             }
             
             .section {
                 scroll-snap-align: none !important;
-                scroll-snap-stop: auto !important;
-            }
-        }
-
-        /* Force disable scroll snap on short screens even if wide */
-        @media only screen and (max-height: 799px) {
-            html {
-                scroll-snap-type: none !important;
-            }
-            
-            .section {
-                scroll-snap-align: none !important;
-                scroll-snap-stop: auto !important;
+                scroll-snap-stop: normal !important;
             }
         }
 
@@ -205,32 +191,56 @@
             color: #e0e0e0;
         }
 
-        /* Custom Scrollbar */
+        /* Custom Scrollbar - Universal Support */
+        * {
+            scrollbar-width: thin;
+            scrollbar-color: #f5b845 transparent;
+        }
+
+        /* Webkit browsers (Chrome, Safari, Edge) */
         ::-webkit-scrollbar {
-            width: 8px;
+            width: 12px;
+            height: 12px;
         }
 
         ::-webkit-scrollbar-track {
             background: transparent;
+            border-radius: 6px;
         }
 
         ::-webkit-scrollbar-thumb {
-            background: #f5b845;
-            border-radius: 4px;
+            background: linear-gradient(45deg, #f5b845, #e6a635);
+            border-radius: 6px;
+            border: 2px solid transparent;
+            background-clip: padding-box;
+            transition: all 0.3s ease;
         }
 
         ::-webkit-scrollbar-thumb:hover {
-            background: #e6a635;
+            background: linear-gradient(45deg, #e6a635, #d4941f);
+            transform: scale(1.1);
         }
 
-        ::-webkit-scrollbar-button {
-            display: none;
+        ::-webkit-scrollbar-thumb:active {
+            background: linear-gradient(45deg, #d4941f, #c5850e);
         }
 
-        /* Firefox scrollbar */
+        ::-webkit-scrollbar-corner {
+            background: transparent;
+        }
+
+        /* Firefox */
         html {
             scrollbar-width: thin;
             scrollbar-color: #f5b845 transparent;
+        }
+
+        /* Fallback for other browsers */
+        @supports not selector(::-webkit-scrollbar) {
+            html {
+                scrollbar-width: auto;
+                scrollbar-color: #f5b845 #121212;
+            }
         }
 
         .neon-text {
@@ -694,14 +704,14 @@
             width: 8px;
             height: 8px;
             border-radius: 50%;
-            background: rgba(255, 255, 255, 0.5);
+            background: rgba(255, 255, 255, 0.4);
             cursor: pointer;
             transition: all 0.3s ease;
         }
 
         .carousel-dot.active {
-            background: white;
-            transform: scale(1.2);
+            background: var(--neon-yellow);
+            box-shadow: 0 0 8px var(--neon-yellow);
         }
 
         .emoji-placeholder {
@@ -840,11 +850,11 @@
             width: 20px;
             height: auto;
             transition: transform 0.4s ease;
-            transform: rotate(180deg); /* Ruota di default perché l'immagine punta verso l'alto */
+            transform: rotate(180deg);
         }
 
         .nav-arrow.rotate-up img {
-            transform: rotate(0deg); /* Quando deve puntare su, torna alla posizione originale */
+            transform: rotate(0deg);
         }
 
         @media (max-width: 768px) {
@@ -1260,6 +1270,7 @@
             padding: 1.5rem;
             max-height: calc(80vh - 60px);
             overflow-y: auto;
+            overscroll-behavior: contain;
         }
         
         .popup-header {
@@ -1290,7 +1301,7 @@
         }
         
         .popup-gallery {
-            margin-bottom: 1rem;
+            margin-bottom: 2.5rem;
         }
         
         .popup-carousel {
@@ -1300,6 +1311,7 @@
             border-radius: 15px;
             overflow: hidden;
             background: #000;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6);
         }
         
         .popup-carousel-track {
@@ -1355,27 +1367,29 @@
         }
         
         .popup-dots {
-            position: absolute;
-            bottom: 10px;
-            left: 50%;
-            transform: translateX(-50%);
+            position: relative;
+            bottom: auto;
+            left: auto;
+            transform: none;
             display: flex;
+            justify-content: center;
             gap: 5px;
             z-index: 3;
+            margin: 15px 0 0 0;
         }
         
         .popup-dot {
             width: 8px;
             height: 8px;
             border-radius: 50%;
-            background: rgba(255, 255, 255, 0.5);
+            background: rgba(255, 255, 255, 0.4);
             cursor: pointer;
             transition: all 0.3s ease;
         }
         
         .popup-dot.active {
-            background: white;
-            transform: scale(1.2);
+            background: var(--neon-yellow);
+            box-shadow: 0 0 8px var(--neon-yellow);
         }
         
         .popup-description {
@@ -1386,6 +1400,67 @@
         
         .popup-description p {
             margin-bottom: 15px;
+        }
+        
+        /* Download area styling */
+        .popup-download-area {
+            margin-top: 20px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .download-title {
+            color: var(--neon-yellow);
+            font-size: 1.1em;
+            font-weight: 600;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .download-buttons {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        
+        .download-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 20px;
+            background: #141414;
+            color: white;
+            text-decoration: none;
+            border-radius: 18px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 0.95em;
+        }
+        
+        .download-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(20, 20, 20, 0.6);
+        }
+        
+        .download-btn.coming-soon {
+            background: rgba(255, 255, 255, 0.1);
+            color: #aaa;
+            cursor: not-allowed;
+        }
+        
+        .download-btn.coming-soon:hover {
+            transform: none;
+            box-shadow: none;
+        }
+        
+        .browser-icon {
+            font-size: 1.2em;
         }
         
         /* Emoji placeholder in popup - full size */
@@ -1420,6 +1495,23 @@
         }
         
         /* Mobile Responsive for Popup */
+        @media (max-width: 768px) {
+            /* Su desktop i pallini devono rimanere visibili */
+            .popup-dots {
+                display: flex !important;
+            }
+        }
+        
+        /* Pallini popup sempre visibili su desktop */
+        @media (min-width: 769px) {
+            .popup-dots {
+                display: flex !important;
+                position: relative !important;
+                margin: 15px 0 0 0 !important;
+                justify-content: center !important;
+            }
+        }
+        
         @media (max-width: 768px) {
             .popup-container {
                 width: 95%;
@@ -1467,6 +1559,21 @@
             .popup-carousel-track {
                 touch-action: pan-x;
             }
+            
+            /* Mobile dots positioning - sotto le foto e sopra il testo */
+            .popup-dots {
+                position: relative !important;
+                bottom: auto !important;
+                left: auto !important;
+                transform: none !important;
+                justify-content: center;
+                margin: 15px 0 20px 0;
+                display: flex !important;
+            }
+            
+            .popup-gallery {
+                margin-bottom: 1.5rem;
+            }
         }
         
         @media (max-width: 480px) {
@@ -1504,7 +1611,7 @@
                 <div class="profile-wrapper">
                     <img src="https://i.imgur.com/hmtaPtS.png" alt="Profilo" class="profile">
                 </div>
-                <p>Streamer & Creator</p>
+                <p>Streamer & Creator • Developer</p>
             </div>
 
             <div class="card-body">
@@ -1587,13 +1694,13 @@
                 <div class="project-image">
                     <div class="carousel-container">
                         <div class="carousel-wrapper">
-                            <img src="assets/1.png" alt="Nuova Scheda Screenshot 1" class="carousel-image" data-index="0">
-                            <img src="assets/2.png" alt="Nuova Scheda Screenshot 2" class="carousel-image" data-index="1">
-                            <img src="assets/3.png" alt="Nuova Scheda Screenshot 3" class="carousel-image" data-index="2">
-                            <img src="assets/4.png" alt="Nuova Scheda Screenshot 4" class="carousel-image" data-index="3">
-                            <img src="assets/5.png" alt="Nuova Scheda Screenshot 5" class="carousel-image" data-index="4">
-                            <img src="assets/6.png" alt="Nuova Scheda Screenshot 6" class="carousel-image" data-index="5">
-                            <img src="assets/7.png" alt="Nuova Scheda Screenshot 7" class="carousel-image" data-index="6">
+                            <img src="assets/projects/nuova-scheda/1.png" alt="Nuova Scheda Screenshot 1" class="carousel-image" data-index="0">
+                            <img src="assets/projects/nuova-scheda/2.png" alt="Nuova Scheda Screenshot 2" class="carousel-image" data-index="1">
+                            <img src="assets/projects/nuova-scheda/3.png" alt="Nuova Scheda Screenshot 3" class="carousel-image" data-index="2">
+                            <img src="assets/projects/nuova-scheda/4.png" alt="Nuova Scheda Screenshot 4" class="carousel-image" data-index="3">
+                            <img src="assets/projects/nuova-scheda/5.png" alt="Nuova Scheda Screenshot 5" class="carousel-image" data-index="4">
+                            <img src="assets/projects/nuova-scheda/6.png" alt="Nuova Scheda Screenshot 6" class="carousel-image" data-index="5">
+                            <img src="assets/projects/nuova-scheda/7.png" alt="Nuova Scheda Screenshot 7" class="carousel-image" data-index="6">
                         </div>
                         <button class="carousel-nav carousel-prev" onclick="changeSlide(-1)">‹</button>
                         <button class="carousel-nav carousel-next" onclick="changeSlide(1)">›</button>
@@ -1673,12 +1780,22 @@
                     </div>
                     <button class="popup-nav popup-nav-prev" id="popupPrev">‹</button>
                     <button class="popup-nav popup-nav-next" id="popupNext">›</button>
-                    <div class="popup-dots" id="popupDots"></div>
                 </div>
+                <div class="popup-dots" id="popupDots"></div>
             </div>
             
             <div class="popup-description" id="popupDescription">
                 <p>Descrizione del progetto...</p>
+            </div>
+            
+            <div class="popup-download-area" id="popupDownloadArea" style="display: none;">
+                <div class="download-title">
+                    <i class="fas fa-download"></i>
+                    <span>Download & Link</span>
+                </div>
+                <div class="download-buttons" id="downloadButtons">
+                    <!-- Buttons will be dynamically added here -->
+                </div>
             </div>
         </div>
     </div>
@@ -1734,27 +1851,27 @@ document.addEventListener('DOMContentLoaded', function() {
 let isScrolling = false;
 let scrollTimeout;
 
-// Check if scroll snap should be active
-function shouldEnableScrollSnap() {
-    return window.innerWidth >= 1025 && window.innerHeight >= 800;
+// Funzione semplificata per determinare se siamo su desktop grande
+function isLargeDesktop() {
+    return window.innerWidth >= 1400 && window.innerHeight >= 1000;
 }
 
 // Detect scroll events and enhance snap behavior
 window.addEventListener('scroll', function() {
-    if (!shouldEnableScrollSnap() || isScrolling) return;
+    if (!isLargeDesktop() || isScrolling) return;
     
     clearTimeout(scrollTimeout);
     isScrolling = true;
     
     scrollTimeout = setTimeout(() => {
         isScrolling = false;
-    }, 100);
+    }, 80);
 });
 
 // Enhanced wheel event handling for better snap control - ONLY on large screens
 window.addEventListener('wheel', function(e) {
     // Skip on small screens - allow normal scrolling
-    if (!shouldEnableScrollSnap()) {
+    if (!isLargeDesktop()) {
         return;
     }
     
@@ -1779,7 +1896,7 @@ window.addEventListener('wheel', function(e) {
             targetSection = Math.max(currentSection - 1, 0);
         }
         
-        // Smooth scroll to target section
+        // Smooth scroll to target section - animazione fluida originale
         window.scrollTo({
             top: targetSection * window.innerHeight,
             behavior: 'smooth'
@@ -1787,7 +1904,7 @@ window.addEventListener('wheel', function(e) {
         
         setTimeout(() => {
             isScrolling = false;
-        }, 800);
+        }, 600); // Timeout coerente con il resto del codice
     }
 }, { passive: false });
 
@@ -1797,17 +1914,17 @@ const totalSections = 2; // Prima e seconda sezione
 const navArrow = document.getElementById('navArrow');
 
 function updateArrowDirection() {
-    if (!shouldEnableScrollSnap()) {
-        // Su schermi piccoli: sempre freccia verso l'alto (back to top)
-        navArrow.classList.add('rotate-up');
-        return;
-    }
+    const scrollY = window.scrollY;
+    const threshold = window.innerHeight * 0.5; // Metà della prima sezione
     
-    // Su schermi grandi: logica normale
-    if (currentSectionIndex >= totalSections - 1) {
+    if (scrollY > threshold) {
+        // Se siamo oltre la metà della prima sezione, mostra freccia su (back to top)
         navArrow.classList.add('rotate-up');
+        navArrow.title = 'Torna all\'inizio';
     } else {
+        // Se siamo all'inizio, mostra freccia giù (vai alla sezione successiva)
         navArrow.classList.remove('rotate-up');
+        navArrow.title = 'Vai ai progetti';
     }
 }
 
@@ -1816,51 +1933,36 @@ function navigateSection() {
     
     isScrolling = true;
     
-    if (!shouldEnableScrollSnap()) {
-        // Su schermi piccoli: sempre "back to top"
+    const scrollY = window.scrollY;
+    const threshold = window.innerHeight * 0.5;
+    
+    if (scrollY > threshold) {
+        // Siamo oltre la metà della pagina, torna all'inizio
         window.scrollTo({
             top: 0,
             behavior: 'smooth'
         });
-        
-        setTimeout(() => {
-            isScrolling = false;
-        }, 800);
-        return;
-    }
-    
-    // Su schermi grandi: comportamento scroll snap normale
-    if (currentSectionIndex >= totalSections - 1) {
-        // Siamo all'ultima sezione, torna all'inizio
-        currentSectionIndex = 0;
     } else {
-        // Vai alla sezione successiva
-        currentSectionIndex++;
+        // Siamo all'inizio, vai alla sezione progetti
+        const projectsSection = document.querySelector('.section.second');
+        if (projectsSection) {
+            projectsSection.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
     }
     
-    // Scroll alla sezione target
-    window.scrollTo({
-        top: currentSectionIndex * window.innerHeight,
-        behavior: 'smooth'
-    });
-    
-    // Aggiorna direzione freccia
+    // Aggiorna direzione freccia dopo l'animazione
     setTimeout(() => {
         updateArrowDirection();
-    }, 300);
-    
-    setTimeout(() => {
         isScrolling = false;
-    }, 800);
+    }, 600);
 }
 
-// Aggiorna l'indice della sezione corrente durante lo scroll - ONLY on large screens
+// Aggiorna la freccia durante lo scroll (semplificato)
 window.addEventListener('scroll', function() {
-    if (!shouldEnableScrollSnap()) return;
-    
-    const newSectionIndex = Math.round(window.scrollY / window.innerHeight);
-    if (newSectionIndex !== currentSectionIndex) {
-        currentSectionIndex = newSectionIndex;
+    if (!isScrolling) {
         updateArrowDirection();
     }
 });
@@ -1947,6 +2049,12 @@ function openPopup(card) {
         `<div class="popup-dot ${i === 0 ? 'active' : ''}" onclick="goToPopupSlide(${i})"></div>`
     ).join('');
     
+    // Reset dots visibility
+    dots.style.display = 'flex';
+    
+    // Setup download area
+    setupDownloadArea(project.title);
+    
     currentPopupSlide = 0;
     updatePopupCarousel();
     
@@ -1959,8 +2067,43 @@ function openPopup(card) {
     // Add touch events for mobile
     addPopupTouchEvents();
     
-    // Prevent body scroll
-    document.body.style.overflow = 'hidden';
+    // Non bloccare lo scroll - permettiamo scroll dentro il popup
+}
+
+// Setup download area based on project
+function setupDownloadArea(projectTitle) {
+    const downloadArea = document.getElementById('popupDownloadArea');
+    const downloadButtons = document.getElementById('downloadButtons');
+    
+    // Clear existing buttons
+    downloadButtons.innerHTML = '';
+    
+    if (projectTitle.includes('Nuova Scheda')) {
+        // Chrome extension project
+        downloadButtons.innerHTML = `
+            <a href="#" class="download-btn" onclick="alert('Link Chrome Web Store coming soon!')">
+                <img src="assets/projects/nuova-scheda/chrome-icon.png" alt="Chrome" style="width: 20px; height: 20px;">
+                <span>Chrome Web Store</span>
+            </a>
+            <a href="#" class="download-btn" onclick="alert('Firefox Add-ons coming soon!')">
+                <img src="assets/projects/nuova-scheda/firefox-icon.png" alt="Firefox" style="width: 20px; height: 20px;">
+                <span>Firefox Add-ons</span>
+            </a>
+        `;
+        downloadArea.style.display = 'block';
+    } else if (projectTitle.includes('Progetto Segreto')) {
+        // Secret project
+        downloadButtons.innerHTML = `
+            <button class="download-btn coming-soon" disabled>
+                <i class="fas fa-clock"></i>
+                <span>In Arrivo</span>
+            </button>
+        `;
+        downloadArea.style.display = 'block';
+    } else {
+        // Hide download area for other projects
+        downloadArea.style.display = 'none';
+    }
 }
 
 // Close popup
@@ -1975,7 +2118,7 @@ function closePopup() {
     setTimeout(() => {
         popup.classList.remove('active');
         popup.style.display = 'none';
-        document.body.style.overflow = '';
+        // Niente da ripristinare
         // Reset for next time
         container.style.transform = '';
         popup.style.opacity = '';
@@ -2080,113 +2223,83 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
     
-    // Enhanced click handlers for project cards - avoid conflicts with carousel
-    let isInteractingWithCarousel = false;
-    let startTime = 0;
-    let startX = 0;
-    let startY = 0;
-    
+    // Simplified click handlers for project cards
     const projectCards = document.querySelectorAll('.project-card');
     projectCards.forEach((card) => {
+        let cardData = {
+            isMoving: false,
+            startX: 0,
+            startY: 0,
+            startTime: 0
+        };
+        
         const carouselArea = card.querySelector('.carousel-container');
         
-        // Track carousel interactions
-        if (carouselArea) {
-            carouselArea.addEventListener('mousedown', (e) => {
-                isInteractingWithCarousel = true;
-                startTime = Date.now();
-                startX = e.clientX;
-                startY = e.clientY;
-            });
-            
-            carouselArea.addEventListener('touchstart', (e) => {
-                isInteractingWithCarousel = true;
-                startTime = Date.now();
-                startX = e.touches[0].clientX;
-                startY = e.touches[0].clientY;
-            }, { passive: true });
-            
-            carouselArea.addEventListener('mousemove', (e) => {
-                if (isInteractingWithCarousel) {
-                    const moveX = Math.abs(e.clientX - startX);
-                    const moveY = Math.abs(e.clientY - startY);
-                    if (moveX > 10 || moveY > 10) {
-                        // User is dragging, not just clicking
-                    }
-                }
-            });
-            
-            carouselArea.addEventListener('touchmove', (e) => {
-                if (isInteractingWithCarousel) {
-                    const currentTouchX = e.touches[0].clientX;
-                    const currentTouchY = e.touches[0].clientY;
-                    const moveX = Math.abs(currentTouchX - startX);
-                    const moveY = Math.abs(currentTouchY - startY);
-                    
-                    // If horizontal movement is dominant, add visual feedback
-                    if (moveX > moveY && moveX > 10) {
-                        e.preventDefault();
-                        const carouselWrapper = carouselArea.querySelector('.carousel-wrapper');
-                        if (carouselWrapper) {
-                            const moveDistance = currentTouchX - startX;
-                            const resistance = Math.max(0.3, 1 - Math.abs(moveDistance) / 300);
-                            carouselWrapper.style.transform = `translateX(calc(-${slideIndex * (100/7)}% + ${moveDistance * resistance}px))`;
-                            carouselWrapper.style.transition = 'none';
-                        }
-                    }
-                }
-            }, { passive: false });
-            
-            carouselArea.addEventListener('mouseup', () => {
-                setTimeout(() => {
-                    isInteractingWithCarousel = false;
-                }, 100);
-            });
-            
-            carouselArea.addEventListener('touchend', (e) => {
-                if (isInteractingWithCarousel) {
-                    const carouselWrapper = carouselArea.querySelector('.carousel-wrapper');
-                    if (carouselWrapper) {
-                        const endX = e.changedTouches[0].clientX;
-                        const diff = startX - endX;
-                        
-                        // Reset transition for smooth snap
-                        carouselWrapper.style.transition = 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
-                        
-                        if (Math.abs(diff) > 50) {
-                            if (diff > 0) {
-                                changeSlide(1); // Swipe left - next image
-                            } else {
-                                changeSlide(-1); // Swipe right - prev image
-                            }
-                        } else {
-                            // Snap back to current position
-                            carouselWrapper.style.transform = `translateX(-${slideIndex * (100/7)}%)`;
-                        }
-                    }
-                }
-                
-                setTimeout(() => {
-                    isInteractingWithCarousel = false;
-                }, 100);
-            });
-        }
+        // Card click handler with simple movement detection
+        card.addEventListener('mousedown', (e) => {
+            cardData.isMoving = false;
+            cardData.startX = e.clientX;
+            cardData.startY = e.clientY;
+            cardData.startTime = Date.now();
+        });
         
-        // Card click handler - only if not interacting with carousel
+        card.addEventListener('touchstart', (e) => {
+            cardData.isMoving = false;
+            cardData.startX = e.touches[0].clientX;
+            cardData.startY = e.touches[0].clientY;
+            cardData.startTime = Date.now();
+        }, { passive: true });
+        
+        card.addEventListener('mousemove', (e) => {
+            const moveX = Math.abs(e.clientX - cardData.startX);
+            const moveY = Math.abs(e.clientY - cardData.startY);
+            if (moveX > 10 || moveY > 10) {
+                cardData.isMoving = true;
+            }
+        });
+        
+        card.addEventListener('touchmove', (e) => {
+            const moveX = Math.abs(e.touches[0].clientX - cardData.startX);
+            const moveY = Math.abs(e.touches[0].clientY - cardData.startY);
+            if (moveX > 10 || moveY > 10) {
+                cardData.isMoving = true;
+            }
+        }, { passive: true });
+        
         card.addEventListener('click', (e) => {
             // Don't open popup if clicking on carousel controls
             if (e.target.closest('.carousel-nav') || 
-                e.target.closest('.carousel-dot') ||
-                isInteractingWithCarousel) {
+                e.target.closest('.carousel-dot')) {
                 return;
             }
             
-            // Add small delay to ensure carousel interaction detection
+            // Se clicchi nell'area del testo, apri sempre il popup (più permissivo)
+            if (e.target.closest('.project-info')) {
+                openPopup(card);
+                return;
+            }
+            
+            // Per l'area dell'immagine, controlla il movimento
+            if (cardData.isMoving) {
+                return;
+            }
+            
+            // Reset movement detection
+            cardData.isMoving = false;
+            openPopup(card);
+        });
+        
+        // Reset movement detection on mouse/touch end
+        card.addEventListener('mouseup', () => {
             setTimeout(() => {
-                if (!isInteractingWithCarousel) {
-                    openPopup(card);
-                }
-            }, 50);
+                cardData.isMoving = false;
+            }, 100);
+        });
+        
+        card.addEventListener('touchend', () => {
+            setTimeout(() => {
+                cardData.isMoving = false;
+            }, 100);
         });
     });
 });
