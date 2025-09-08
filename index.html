@@ -64,25 +64,19 @@
                 min-height: 100vh;
                 display: flex;
                 flex-direction: column;
-                justify-content: space-between;
+                justify-content: center;
                 align-items: center;
-                padding: 60px 20px 0;
+                padding: 60px 20px;
             }
             
             .section.second .projects-section {
-                flex-grow: 1;
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                margin: 0 auto;
+                flex-grow: 0;
+                display: block;
+                margin: 60px auto 20px;
                 max-width: 1200px;
                 width: 100%;
             }
             
-            .section.second .community-container {
-                margin: 40px auto;
-                max-width: 800px;
-            }
             
             .section.second footer {
                 margin: 40px auto 30px;
@@ -162,14 +156,11 @@
             .section.second .projects-section {
                 flex-grow: 0 !important;
                 display: block !important;
-                margin: 60px auto 60px !important;
+                margin: 60px auto 20px !important;
                 max-width: 1200px !important;
                 width: auto !important;
             }
             
-            .section.second .community-container {
-                margin: 60px auto 40px !important;
-            }
             
             .section.second footer {
                 margin: 60px auto 30px !important;
@@ -266,6 +257,17 @@
         @keyframes flickerYellow {
             50% { text-shadow: 0 0 3px #f5b845, 0 0 6px #f5b845, 0 0 12px #f5b845; }
         }
+        
+        @keyframes slideInRight {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
 
         /* Sezioni base - no scroll snap di default */
         .section {
@@ -299,10 +301,14 @@
         }
 
         .section.second {
-            justify-content: flex-start;
+            justify-content: center;
             position: relative;
             padding-top: 60px;
             margin-top: 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
         }
 
         /* Card */
@@ -584,7 +590,7 @@
         .projects-section {
             width: 100%;
             max-width: 1200px;
-            margin: 60px auto 60px;
+            margin: 60px auto 20px;
         }
 
         .projects-title {
@@ -797,7 +803,7 @@
             text-align: center;
             box-shadow: 0 -20px 40px rgba(0, 0, 0, 0.9);
             border-radius: 34px;
-            margin: 60px auto 30px;
+            margin: 60px auto 0px;
             max-width: 800px;
             width: auto;
             position: relative;
@@ -810,6 +816,442 @@
             margin: 0;
             font-size: 0.9em;
         }
+
+        /* Contacts Section Styles */
+        .contacts-main-container {
+            background-color: #141414;
+            border-radius: 34px;
+            padding: 40px 30px;
+            width: 100%;
+            max-width: 650px;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.9);
+            margin: 40px auto 40px;
+            color: #ccc;
+        }
+
+
+        .contacts-title {
+            font-family: 'Beon', cursive;
+            font-size: 2.5em;
+            text-align: center;
+            margin-bottom: 30px;
+            margin-top: 0;
+            text-transform: uppercase;
+        }
+        .contacts-title .yellow {
+            color: #f5b845;
+            text-shadow: 0 0 5px #f5b845, 0 0 10px #f5b845, 0 0 20px #f5b845;
+            animation: flickerYellow 1.5s infinite alternate;
+        }
+        .contacts-title .pink {
+            color: #ff6371;
+            text-shadow: 0 0 5px #ff6371, 0 0 10px #ff6371, 0 0 20px #ff6371;
+            animation: flickerPink 1.2s infinite alternate;
+        }
+
+        .contacts-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin: 20px 0 0 0;
+        }
+
+        .contact-card {
+            position: relative;
+            background-color: #141414;
+            border-radius: 34px;
+            padding: 1.2rem;
+            text-decoration: none;
+            color: white;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.9);
+            min-height: 120px;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            text-align: left;
+        }
+
+        .contact-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.9);
+        }
+
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            margin-right: 1.2rem;
+            margin-bottom: 0;
+            font-size: 24px;
+            color: var(--neon-yellow);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+        }
+
+        .contact-card:hover .contact-icon {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .contact-info-content {
+            flex: 1;
+        }
+
+        .contact-card h3 {
+            color: white;
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin: 0 0 0.3rem 0;
+        }
+
+        .contact-card p {
+            color: #ccc;
+            font-size: 0.8rem;
+            line-height: 1.3;
+            margin: 0 0 0.8rem 0;
+        }
+
+        .contact-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(245, 184, 69, 0.1);
+            color: var(--neon-yellow);
+            padding: 8px 16px;
+            border-radius: 12px;
+            text-decoration: none;
+            border: 1px solid rgba(245, 184, 69, 0.3);
+            transition: all 0.3s ease;
+            font-weight: 500;
+            font-size: 0.85rem;
+            margin-top: 0.3rem;
+        }
+
+        .contact-button:hover {
+            background: rgba(245, 184, 69, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .contact-skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            justify-content: flex-start;
+            margin-top: 0.5rem;
+        }
+
+        .skill-tag {
+            background: rgba(255, 99, 113, 0.1);
+            color: var(--neon-pink);
+            padding: 4px 10px;
+            border-radius: 10px;
+            font-size: 0.75em;
+            border: 1px solid rgba(255, 99, 113, 0.2);
+        }
+
+        .contact-arrow {
+            position: absolute;
+            bottom: 1rem;
+            right: 1rem;
+            font-size: 1.5rem;
+            color: var(--neon-yellow);
+            transition: all 0.3s ease;
+            opacity: 0.6;
+        }
+
+        .contact-card:hover .contact-arrow {
+            transform: translateX(5px);
+            opacity: 1;
+        }
+
+        .contact-card-clickable {
+            cursor: pointer;
+            text-decoration: none !important;
+        }
+
+        .contact-card-clickable:visited,
+        .contact-card-clickable:link {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .contact-button-inline {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--neon-yellow);
+            font-weight: 500;
+            font-size: 0.85rem;
+            margin-top: 0.3rem;
+        }
+
+        .contact-button-inline i {
+            color: var(--neon-yellow);
+        }
+
+        /* URRS Section Styles - Hierarchical Layout with Anime Touch */
+        .urrs-main-container {
+            background-color: #141414;
+            border-radius: 34px;
+            padding: 40px 30px;
+            width: 100%;
+            max-width: 650px;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.9);
+            margin: 60px auto 40px;
+            color: #ccc;
+        }
+
+        .urrs-title {
+            font-family: 'Beon', cursive;
+            font-size: 2.5em;
+            text-align: center;
+            margin-bottom: 30px;
+            margin-top: 0;
+            text-transform: uppercase;
+        }
+        .urrs-title .pink {
+            color: #ff6371;
+            text-shadow: 0 0 5px #ff6371, 0 0 10px #ff6371, 0 0 20px #ff6371;
+            animation: flickerPink 1.2s infinite alternate;
+        }
+        .urrs-title .yellow {
+            color: #f5b845;
+            text-shadow: 0 0 5px #f5b845, 0 0 10px #f5b845, 0 0 20px #f5b845;
+            animation: flickerYellow 1.5s infinite alternate;
+        }
+        
+
+        .urrs-description {
+            font-size: 0.95em;
+            line-height: 1.5;
+            margin-bottom: 30px;
+            color: #ccc;
+            max-width: 100%;
+        }
+
+        .urrs-sections {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 20px;
+        }
+
+        
+        .urrs-unified-card {
+            background-color: #141414;
+            border-radius: 34px;
+            padding: 25px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.9);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        
+        .urrs-card-header {
+            margin-bottom: 20px;
+            flex: 1;
+        }
+        
+        .urrs-card-header .urrs-card-content {
+            width: 100%;
+        }
+        
+        .urrs-card-header .urrs-card-content {
+            text-align: left;
+        }
+        
+        .urrs-card-header .urrs-card-content h4 {
+            color: #f5b845;
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin: 0 0 12px 0;
+        }
+        
+        .urrs-card-header .urrs-card-content p {
+            color: #ccc;
+            font-size: 0.85rem;
+            line-height: 1.4;
+            margin: 0 0 8px 0;
+        }
+        
+        .urrs-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: auto;
+        }
+        
+        .urrs-button {
+            display: flex;
+            align-items: center;
+            padding: 12px 20px;
+            background: #222222;
+            color: #ccc;
+            text-decoration: none;
+            border-radius: 18px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 0.95em;
+            position: relative;
+        }
+        
+        .urrs-button i,
+        .urrs-button img {
+            position: absolute;
+            left: 20px;
+        }
+        
+        .urrs-button span {
+            width: 100%;
+            text-align: center;
+        }
+        
+        .urrs-button:hover {
+            transform: scale(1.03);
+            box-shadow: 0 8px 25px rgba(20, 20, 20, 0.6);
+        }
+        
+        .urrs-discord-btn i {
+            color: #5865F2;
+        }
+        
+        .urrs-telegram-btn i {
+            color: #0088cc;
+        }
+        
+        .urrs-survival-btn i {
+            color: #4CAF50;
+        }
+        
+        .urrs-creative-btn i {
+            color: #FF9800;
+        }
+        
+        .urrs-list {
+            margin: 10px 0;
+            padding-left: 0;
+            list-style: none;
+        }
+        
+        .urrs-list li {
+            position: relative;
+            padding-left: 20px;
+            margin-bottom: 8px;
+            color: #ccc;
+            font-size: 0.85rem;
+            line-height: 1.4;
+        }
+        
+        .urrs-list li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        
+        .urrs-list li::before {
+            color: #ff6371;
+        }
+
+        .urrs-category-title {
+            font-size: 1.1em;
+            font-weight: 600;
+            color: white;
+            margin-bottom: 15px;
+            text-align: left;
+        }
+
+        .urrs-cards-row {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .urrs-card {
+            position: relative;
+            background-color: #141414;
+            border-radius: 34px;
+            padding: 1.2rem;
+            text-decoration: none;
+            color: white;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.9);
+            min-height: 80px;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            text-align: left;
+        }
+
+
+        .urrs-card-icon {
+            width: 40px;
+            height: 40px;
+            margin-right: 1.2rem;
+            margin-bottom: 0;
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+        }
+
+
+        .urrs-discord .urrs-card-icon i {
+            color: #5865F2;
+        }
+
+        .urrs-telegram .urrs-card-icon i {
+            color: #0088cc;
+        }
+
+        .urrs-twitch .urrs-card-icon i {
+            color: #9146FF;
+        }
+
+        .urrs-minecraft .urrs-card-icon {
+            color: #4CAF50;
+        }
+
+        .urrs-card-content {
+            flex: 1;
+        }
+
+        .urrs-card-content h4 {
+            color: white;
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin: 0 0 0.3rem 0;
+        }
+
+        .urrs-card-content p {
+            color: #ccc;
+            font-size: 0.8rem;
+            line-height: 1.3;
+            margin: 0;
+        }
+
+        .urrs-card-arrow {
+            position: absolute;
+            bottom: 1rem;
+            right: 1rem;
+            font-size: 1.5rem;
+            color: var(--neon-yellow);
+            transition: all 0.3s ease;
+            opacity: 0.6;
+        }
+
 
 
         /* Navigation Arrow Button */
@@ -862,6 +1304,46 @@
             }
         }
 
+        /* URRS responsive styles */
+        @media (max-width: 1024px) {
+            .urrs-sections {
+                grid-template-columns: 1fr;
+                gap: 25px;
+            }
+            
+            .urrs-unified-card {
+                min-height: 180px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .urrs-main-container {
+                padding: 30px 20px;
+                max-width: 100%;
+            }
+            
+            .urrs-title {
+                font-size: 2em;
+            }
+            
+            .urrs-description {
+                font-size: 0.9em;
+            }
+            
+            .urrs-card {
+                padding: 1rem;
+                min-height: 70px;
+            }
+            
+            .urrs-card-content h4 {
+                font-size: 1rem;
+            }
+            
+            .urrs-card-content p {
+                font-size: 0.75rem;
+            }
+        }
+
         /* Medium screens - Tablet/Small Desktop - Disable scroll snap for smaller screens */
         @media (max-width: 1024px) and (min-width: 769px) {
             .section {
@@ -904,12 +1386,10 @@
                 margin: 40px auto 50px auto;
             }
             
-            .community-container {
-                margin: 50px auto 40px;
-            }
+
             
             .projects-section {
-                margin: 50px auto 50px;
+                margin: 50px auto 20px;
             }
             
             footer {
@@ -966,12 +1446,10 @@
                 margin: 40px auto 50px auto;
             }
             
-            .community-container {
-                margin: 50px auto 40px;
-            }
+
             
             .projects-section {
-                margin: 50px auto 50px;
+                margin: 50px auto 20px;
             }
             
             footer {
@@ -1029,12 +1507,10 @@
                 margin: 0 auto;
             }
             
-            .community-container {
-                margin: 50px auto 40px;
-            }
+
             
             .projects-section {
-                margin: 50px auto 50px;
+                margin: 50px auto 20px;
             }
         }
 
@@ -1089,10 +1565,6 @@
                 min-height: 90px;
             }
             
-            .community-container {
-                padding: 30px 25px;
-                margin-bottom: 20px;
-            }
             
             .projects-section {
                 margin-bottom: 30px;
@@ -1175,9 +1647,6 @@
                 min-height: 75px;
             }
             
-            .community-container {
-                padding: 20px;
-            }
             
             .profile-wrapper {
                 width: 70px;
@@ -1676,6 +2145,7 @@
     </div>
 </div>
 
+<!-- Sezione Progetti + Contatti -->
 <div class="section second">
     <div class="projects-section">
         <div class="projects-title">
@@ -1734,18 +2204,122 @@
         </div>
     </div>
     
-    <div class="community-container">
-        <div class="community-title">
-            <span class="yellow">Community</span> <span class="pink">U</span><span class="yellow">.</span><span class="pink">R</span><span class="yellow">.</span><span class="pink">R</span><span class="yellow">.</span><span class="pink">S</span><span class="yellow">.</span>
+    <!-- Sezione Contatti integrata -->
+    <div class="contacts-main-container">
+        <div class="contacts-title">
+            <span class="yellow">CONTATTI</span> <span class="pink">&</span> <span class="yellow">INFO</span>
         </div>
-        <p>U.R.R.S. è una community che ho fondato diversi anni fa e che è diventata una parte importante della mia vita. Nata dalla passione per il mondo otaku, questa community riunisce appassionati di anime, manga, videogiochi e cultura giapponese. Un luogo dove condividere esperienze, scoprire nuovi contenuti e creare legami autentici.</p>
-        <a class="community-button" href="http://urrs.mywebcommunity.org/" target="_blank">
-            Visita il sito ufficiale
-        </a>
+        <div class="contacts-container">
+            <div class="contact-card">
+                <div class="contact-icon">
+                    <i class="fas fa-code"></i>
+                </div>
+                <div class="contact-info-content">
+                    <h3>Sviluppatore</h3>
+                    <p>Creo estensioni, siti web e progetti digitali con passione per il design e l'innovazione.</p>
+                    <div class="contact-skills">
+                        <span class="skill-tag">JavaScript</span>
+                        <span class="skill-tag">Web Extensions</span>
+                        <span class="skill-tag">UI/UX</span>
+                    </div>
+                </div>
+            </div>
+            <div class="contact-card contact-card-clickable" onclick="copyToClipboard('ziofrankekko@gmail.com')">
+                <div class="contact-icon">
+                    <i class="fas fa-envelope"></i>
+                </div>
+                <div class="contact-info-content">
+                    <h3>Scrivimi</h3>
+                    <p>Per collaborazioni, progetti o semplicemente per dire ciao!</p>
+                    <div class="contact-button-inline">
+                        ziofrankekko@gmail.com
+                    </div>
+                </div>
+                <div class="contact-arrow">
+                    <span>→</span>
+                </div>
+            </div>
+        </div>
     </div>
+</div>
 
+<!-- Sezione URRS -->
+<div class="section third">
+    <div class="urrs-main-container">
+        <div class="urrs-title">
+            <span class="yellow">COMMUNITY</span> <span class="pink">U</span><span class="yellow">.</span><span class="pink">R</span><span class="yellow">.</span><span class="pink">R</span><span class="yellow">.</span><span class="pink">S</span><span class="yellow">.</span>
+        </div>
+        <p class="urrs-description">U.R.R.S. è una community che ho fondato diversi anni fa e che è diventata una parte importante della mia vita. Nata dalla passione per il mondo otaku, questa community riunisce appassionati di anime, manga, videogiochi e cultura giapponese. Un luogo dove condividere esperienze, scoprire nuovi contenuti e creare legami autentici.</p>
+        
+        <div style="text-align: center; margin: 30px 0;">
+            <a href="http://urrs.mywebcommunity.org/" target="_blank" class="urrs-button" style="display: inline-flex !important; align-items: center !important; justify-content: center !important; gap: 8px !important; padding: 14px 45px; background: rgba(245, 184, 69, 0.2); color: #f5b845; text-decoration: none; border-radius: 20px; font-weight: 600; font-size: 1rem; border: 1px solid rgba(245, 184, 69, 0.3); transition: all 0.3s ease; position: static !important;">
+                <i class="fas fa-globe" style="color: #f5b845; position: static !important; left: auto !important;"></i>
+                <span style="width: auto !important; text-align: left !important;">Visita il Sito Ufficiale</span>
+            </a>
+        </div>
+        
+        <div class="urrs-sections">
+            <!-- Card Community -->
+            <div class="urrs-unified-card">
+                <div class="urrs-card-header">
+                    <div class="urrs-card-content">
+                        <h4>Community Hub</h4>
+                        <ul class="urrs-list discord-list">
+                            <li>Chat in tempo reale con membri</li>
+                            <li>Eventi community esclusivi</li>
+                            <li>Supporto e discussioni otaku</li>
+                        </ul>
+                        <ul class="urrs-list telegram-list">
+                            <li>File videogiochi otaku difficili da reperire</li>
+                            <li>Visual novel tradotte completamente in italiano</li>
+                            <li>Light novel tradotte in italiano</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="urrs-buttons">
+                    <a href="https://discord.gg/z85csQE2zy" target="_blank" class="urrs-button urrs-discord-btn">
+                        <i class="fab fa-discord"></i>
+                        <span>Unisciti su Discord</span>
+                    </a>
+                    <a href="https://t.me/U_R_R_S_telegram_group" target="_blank" class="urrs-button urrs-telegram-btn">
+                        <img src="attached_assets/4846401_1757340613170.png" alt="Telegram" style="width: 20px; height: 20px;">
+                        <span>Seguici su Telegram</span>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Card Minecraft -->
+            <div class="urrs-unified-card">
+                <div class="urrs-card-header">
+                    <div class="urrs-card-content">
+                        <img src="https://i.imgur.com/dbidZUn.png" alt="Minecraft Servers" style="display: block; width: 100%; max-width: 220px; height: auto; margin: 0 auto 25px auto;">
+                        <p style="text-align: left; color: #ccc; font-size: 0.85rem; line-height: 1.4; margin: 0 0 15px 0;">
+                            <strong>Versione server survival:</strong><br>
+                            v1.19.2<br><br>
+                            <strong>Versione server creativa:</strong><br>
+                            v1.19.2
+                        </p>
+                        <p style="text-align: left; color: #ccc; font-size: 0.9rem; line-height: 1.4; margin: 0 0 15px 0;">
+                            Clicca i pulsanti qui sotto per copiare l'indirizzo IP dei server
+                        </p>
+                    </div>
+                </div>
+                <div class="urrs-buttons">
+                    <button class="urrs-button urrs-survival-btn" onclick="copyToClipboard('server-survival-delle-grandi-scuole.serv.gs')">
+                        <i class="fas fa-mountain"></i>
+                        <span>Server Survival</span>
+                    </button>
+                    <button class="urrs-button urrs-creative-btn" onclick="copyToClipboard('server-creativa-delle-grandi-scuole.serv.gs')">
+                        <i class="fas fa-hammer"></i>
+                        <span>Server Creativa</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
     <footer>
-    <p>© 2025 <span style="color: #f5b845;">ZioFrankekko</span> - All rights reserved</p>
+        <p>© 2025 <span style="color: #f5b845;">ZioFrankekko</span> - All rights reserved</p>
     </footer>
 </div>
 
@@ -1907,16 +2481,21 @@ const navArrow = document.getElementById('navArrow');
 
 function updateArrowDirection() {
     const scrollY = window.scrollY;
-    const threshold = window.innerHeight * 0.5; // Metà della prima sezione
+    const sectionHeight = window.innerHeight;
+    const currentSection = Math.round(scrollY / sectionHeight);
     
-    if (scrollY > threshold) {
-        // Se siamo oltre la metà della prima sezione, mostra freccia su (back to top)
+    if (currentSection >= 2) {
+        // Nell'ultima sezione (URRS), mostra freccia su (back to top)
         navArrow.classList.add('rotate-up');
-        navArrow.title = 'Torna all\'inizio';
+        navArrow.title = 'Torna in cima';
     } else {
-        // Se siamo all'inizio, mostra freccia giù (vai alla sezione successiva)
+        // Nelle prime sezioni, mostra freccia giù
         navArrow.classList.remove('rotate-up');
-        navArrow.title = 'Vai ai progetti';
+        if (currentSection === 0) {
+            navArrow.title = 'Vai ai progetti';
+        } else if (currentSection === 1) {
+            navArrow.title = 'Vai alla community URRS';
+        }
     }
 }
 
@@ -1926,23 +2505,22 @@ function navigateSection() {
     isScrolling = true;
     
     const scrollY = window.scrollY;
-    const threshold = window.innerHeight * 0.5;
+    const sectionHeight = window.innerHeight;
+    const currentSection = Math.round(scrollY / sectionHeight);
     
-    if (scrollY > threshold) {
-        // Siamo oltre la metà della pagina, torna all'inizio
+    if (currentSection >= 2) {
+        // Nell'ultima sezione (URRS), torna all'inizio
         window.scrollTo({
             top: 0,
             behavior: 'smooth'
         });
     } else {
-        // Siamo all'inizio, vai alla sezione progetti
-        const projectsSection = document.querySelector('.section.second');
-        if (projectsSection) {
-            projectsSection.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
-            });
-        }
+        // Vai alla sezione successiva
+        const nextSection = currentSection + 1;
+        window.scrollTo({
+            top: nextSection * sectionHeight,
+            behavior: 'smooth'
+        });
     }
     
     // Aggiorna direzione freccia dopo l'animazione
@@ -2293,6 +2871,37 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
+
+// Copy to clipboard function for Minecraft servers
+function copyToClipboard(text) {
+    navigator.clipboard.writeText(text).then(function() {
+        // Create a temporary notification
+        const notification = document.createElement('div');
+        notification.style.cssText = `
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #141414;
+            color: #f5b845;
+            padding: 15px 25px;
+            border-radius: 25px;
+            font-weight: 600;
+            z-index: 10000;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.9);
+            border: 1px solid #f5b845;
+            animation: slideInRight 0.3s ease-out;
+        `;
+        notification.textContent = text.includes('@') ? 'Email copiata negli appunti!' : 'IP copiato negli appunti!';
+        document.body.appendChild(notification);
+        
+        // Remove notification after 2 seconds
+        setTimeout(() => {
+            notification.remove();
+        }, 2000);
+    }).catch(function(err) {
+        console.error('Errore nel copiare negli appunti: ', err);
+    });
+}
 </script>
 </body>
 </html>

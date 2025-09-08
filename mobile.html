@@ -460,7 +460,7 @@
             line-height: 1.5;
             margin-bottom: 20px;
             opacity: 0.9;
-            text-align: left;
+            text-align: center;
             padding: 0 5px;
         }
 
@@ -741,6 +741,245 @@
             color: #aaa;
             margin: 8px 0 0 0;
         }
+
+        /* Contacts Section */
+        .contacts-section {
+            background: var(--dark-bg);
+            border-radius: 20px;
+            padding: 25px 18px;
+            margin: 0 10px 30px 10px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.8);
+        }
+
+        .contact-cards {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .contact-card {
+            background: rgba(20, 20, 20, 0.8);
+            border-radius: 15px;
+            padding: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            position: relative;
+        }
+
+        .contact-card.clickable {
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .contact-card.clickable:active {
+            transform: scale(0.98);
+        }
+
+        .contact-icon {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+            background: rgba(245, 184, 69, 0.1);
+            flex-shrink: 0;
+        }
+
+        .contact-icon i {
+            font-size: 1.2em;
+            color: var(--neon-yellow);
+        }
+
+        .contact-info {
+            flex: 1;
+        }
+
+        .contact-info h3 {
+            color: white;
+            font-size: 1.1em;
+            font-weight: 600;
+            margin: 0 0 8px 0;
+        }
+
+        .contact-info p {
+            color: #ccc;
+            font-size: 0.9em;
+            line-height: 1.4;
+            margin: 0 0 10px 0;
+        }
+
+        .contact-skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .skill-tag {
+            background: rgba(255, 99, 113, 0.1);
+            color: var(--neon-pink);
+            padding: 4px 8px;
+            border-radius: 8px;
+            font-size: 0.75em;
+            border: 1px solid rgba(255, 99, 113, 0.2);
+        }
+
+        .email-address {
+            color: var(--neon-yellow);
+            font-weight: 500;
+            font-size: 0.85em;
+        }
+
+        .contact-arrow {
+            position: absolute;
+            bottom: 15px;
+            right: 15px;
+            color: var(--neon-yellow);
+            font-size: 1.2em;
+            opacity: 0.6;
+        }
+
+        /* URRS Section Updates */
+        .urrs-button-container {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .urrs-website-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 30px;
+            background: rgba(245, 184, 69, 0.2);
+            color: var(--neon-yellow);
+            text-decoration: none;
+            border-radius: 15px;
+            font-weight: 600;
+            font-size: 0.9em;
+            border: 1px solid rgba(245, 184, 69, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .urrs-website-button:active {
+            transform: scale(0.98);
+        }
+
+        .urrs-cards {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            margin-top: 25px;
+        }
+
+        .urrs-card {
+            background: rgba(20, 20, 20, 0.8);
+            border-radius: 15px;
+            padding: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+        }
+
+        .urrs-card-header h4 {
+            color: var(--neon-yellow);
+            font-size: 1.1em;
+            font-weight: 600;
+            margin: 0 0 15px 0;
+            text-align: left;
+        }
+
+        .urrs-features {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 20px 0;
+            text-align: left;
+        }
+
+        .urrs-features li {
+            position: relative;
+            padding-left: 18px;
+            margin-bottom: 8px;
+            color: #ccc;
+            font-size: 0.85em;
+            line-height: 1.4;
+        }
+
+        .urrs-features li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: var(--neon-pink);
+            font-weight: bold;
+        }
+
+        .urrs-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .urrs-button {
+            display: flex;
+            align-items: center;
+            padding: 12px 20px;
+            background: #222222;
+            color: #ccc;
+            text-decoration: none;
+            border-radius: 12px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 0.9em;
+            position: relative;
+        }
+
+        .urrs-button i,
+        .urrs-button img {
+            position: absolute;
+            left: 20px;
+        }
+
+        .urrs-button span {
+            width: 100%;
+            text-align: center;
+        }
+
+        .urrs-button:active {
+            transform: scale(0.98);
+        }
+
+        .urrs-discord-btn i {
+            color: #5865F2;
+        }
+
+        .urrs-telegram-btn img {
+            width: 16px;
+            height: 16px;
+        }
+
+        .urrs-survival-btn i {
+            color: #4CAF50;
+        }
+
+        .urrs-creative-btn i {
+            color: #FF9800;
+        }
+
+        .minecraft-logo {
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        .server-info p {
+            color: #ccc;
+            font-size: 0.85em;
+            margin: 5px 0;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
@@ -883,6 +1122,42 @@
             </div>
         </div>
 
+        <!-- Contacts Section -->
+        <div class="contacts-section">
+            <h2 class="section-title">
+                <span class="yellow">CONTATTI</span> <span class="pink">&</span> <span class="yellow">INFO</span>
+            </h2>
+            <div class="contact-cards">
+                <div class="contact-card">
+                    <div class="contact-icon">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <div class="contact-info">
+                        <h3>Sviluppatore</h3>
+                        <p>Creo estensioni, siti web e progetti digitali con passione per il design e l'innovazione.</p>
+                        <div class="contact-skills">
+                            <span class="skill-tag">JavaScript</span>
+                            <span class="skill-tag">Web Extensions</span>
+                            <span class="skill-tag">UI/UX</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-card clickable" onclick="copyToClipboard('ziofrankekko@gmail.com')">
+                    <div class="contact-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <div class="contact-info">
+                        <h3>Scrivimi</h3>
+                        <p>Per collaborazioni, progetti o semplicemente per dire ciao!</p>
+                        <div class="email-address">
+                            ziofrankekko@gmail.com
+                        </div>
+                    </div>
+                    <div class="contact-arrow">→</div>
+                </div>
+            </div>
+        </div>
+
         <!-- Community Section -->
         <div class="community-section">
             <h2 class="section-title">
@@ -892,9 +1167,63 @@
             <div class="community-desc">
                 U.R.R.S. è una community che ho fondato diversi anni fa e che è diventata una parte importante della mia vita. Nata dalla passione per il mondo otaku, questa community riunisce appassionati di anime, manga, videogiochi e cultura giapponese. Un luogo dove condividere esperienze, scoprire nuovi contenuti e creare legami autentici.
             </div>
-            <a class="community-button" href="http://urrs.mywebcommunity.org/" target="_blank">
-                Visita il sito ufficiale
-            </a>
+            
+            <div class="urrs-button-container">
+                <a class="urrs-website-button" href="http://urrs.mywebcommunity.org/" target="_blank">
+                    <i class="fas fa-globe"></i>
+                    <span>Visita il Sito Ufficiale</span>
+                </a>
+            </div>
+            
+            <div class="urrs-cards">
+                <div class="urrs-card">
+                    <div class="urrs-card-header">
+                        <h4>Community Hub</h4>
+                        <ul class="urrs-features">
+                            <li>Chat in tempo reale con membri</li>
+                            <li>Eventi community esclusivi</li>
+                            <li>Supporto e discussioni otaku</li>
+                            <li>File videogiochi otaku difficili da reperire</li>
+                            <li>Visual novel tradotte in italiano</li>
+                            <li>Light novel tradotte in italiano</li>
+                        </ul>
+                    </div>
+                    <div class="urrs-buttons">
+                        <a href="https://discord.gg/z85csQE2zy" target="_blank" class="urrs-button urrs-discord-btn">
+                            <i class="fab fa-discord"></i>
+                            <span>Unisciti su Discord</span>
+                        </a>
+                        <a href="https://t.me/U_R_R_S_telegram_group" target="_blank" class="urrs-button urrs-telegram-btn">
+                            <img src="attached_assets/4846401_1757340613170.png" alt="Telegram" style="width: 16px; height: 16px;">
+                            <span>Seguici su Telegram</span>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="urrs-card">
+                    <div class="urrs-card-header">
+                        <div class="minecraft-logo">
+                            <img src="https://i.imgur.com/dbidZUn.png" alt="Minecraft Servers" style="width: 100%; max-width: 200px; height: auto; margin-bottom: 15px;">
+                        </div>
+                        <div class="server-info">
+                            <p><strong>Versione server survival:</strong> v1.19.2</p>
+                            <p><strong>Versione server creativa:</strong> v1.19.2</p>
+                        </div>
+                        <div style="margin: 25px 0;"></div>
+                        <p style="margin-top: 10px; margin-bottom: 20px; font-size: 0.85em; opacity: 0.8;">Clicca i pulsanti per copiare l'indirizzo IP</p>
+                    </div>
+                    <div class="urrs-buttons">
+                        <button class="urrs-button urrs-survival-btn" onclick="copyToClipboard('server-survival-delle-grandi-scuole.serv.gs')">
+                            <i class="fas fa-mountain"></i>
+                            <span>Server Survival</span>
+                        </button>
+                        <button class="urrs-button urrs-creative-btn" onclick="copyToClipboard('server-creativa-delle-grandi-scuole.serv.gs')">
+                            <i class="fas fa-hammer"></i>
+                            <span>Server Creativa</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -1347,6 +1676,37 @@
                 });
             });
         });
+
+        // Copy to clipboard function 
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(function() {
+                // Create a temporary notification
+                const notification = document.createElement('div');
+                notification.style.cssText = `
+                    position: fixed;
+                    top: 20px;
+                    right: 20px;
+                    background: #141414;
+                    color: #f5b845;
+                    padding: 15px 25px;
+                    border-radius: 25px;
+                    font-weight: 600;
+                    z-index: 10000;
+                    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.9);
+                    border: 1px solid #f5b845;
+                    animation: slideInRight 0.3s ease-out;
+                `;
+                notification.textContent = text.includes('@') ? 'Email copiata negli appunti!' : 'IP copiato negli appunti!';
+                document.body.appendChild(notification);
+                
+                // Remove notification after 2 seconds
+                setTimeout(() => {
+                    notification.remove();
+                }, 2000);
+            }).catch(function(err) {
+                console.error('Errore nel copiare negli appunti: ', err);
+            });
+        }
 
     </script>
 </body>
