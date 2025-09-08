@@ -1,6 +1,6 @@
 # ZioFrankekko Hub
 
-Sito personale di ZioFrankekko con link ai canali social e alla community U.R.R.S.
+Sito personale di ZioFrankekko con link ai canali social, progetti e alla community U.R.R.S.
 
 ## Contenuti
 
@@ -10,6 +10,7 @@ Sito personale di ZioFrankekko con link ai canali social e alla community U.R.R.
   - Twitch
   - Discord
   - YouTube
+- Sezione dedicata ai progetti passati e in corso + contatti.
 - Sezione dedicata alla community U.R.R.S. con pulsante al sito ufficiale.
 - Footer minimal e coerente con il design della card.
 
@@ -21,3 +22,4 @@ Sito personale di ZioFrankekko con link ai canali social e alla community U.R.R.
 ## Licenza
 
 Contenuti creati da ZioFrankekko.
+
